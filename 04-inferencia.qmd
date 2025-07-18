@@ -1,0 +1,3 @@
+# A Lógica da Inferência Estatística
+
+Sejam os testes de hipóteses $H_0$ *vs*. $H_A$.

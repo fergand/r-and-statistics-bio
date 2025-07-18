@@ -1,0 +1,194 @@
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+library(tidyverse)
+```
+
+
+# Introdução
+
+Para começar essa jornada, o primeiro passo é configurar o ambiente de trabalho. Isso envolve a instalação de dois *softwares* distintos, mas que trabalham juntos: R e RStudio. Compreender o funcionamento de cada um e como eles se interagem é fundamental para as próximas etapas.
+
+## O que são R e RStudio?
+
+É comum que iniciantes confundam R e RStudio, mas esta distinção é crucial para o processo.
+
+- **R** é a linguagem de programação e o ambiente de software para computação estatística e gráficos. Pode-se pensar que é o "motor" que executa todos os cálculos, análises e gera os gráficos. Além de tudo, é um projeto de código aberto, gratuito e mantido por uma vasta comunidade de desenvolvedores e estatísticos ao redor do mundo.
+- **RStudio** é um Ambiente de Desenvolvimento Integrado (IDE, do inglês *Integrated Development Environment*). Se o R é o motor do carro, o RStudio é o painel, o volante, e todo o interior que torna a condução do carro uma experiência agradável e gerenciável. O RStudio fornece uma interface gráfica e amigável que organiza o trabalho em R, facilitando a escrita de *scripts* (arquivos de códigos), a visualização de gráficos, o gerenciamento de pacotes (bibliotecas) e muito mais. Embora seja possível utilizar o R sem o RStudio, a utilização do RStudio é fortemente recomendada, pois deixa o processo de análise muito mais interativo e organizado.
+
+## Instalação passo a passo
+
+A instalação adequada dos programas é um pré-requisito crucial. A ordem de instalação é importante: **R deve ser instalado antes do RStudio**.
+
+1. Instalando o R:
+
+- Acesse o [site](https://cran.r-project.org/) do *Comprehensive R Archive Network* (CRAN), que é o repositório oficial para o R e seus pacotes.
+- Na página inicial, selecione o link de download para o seu sistema operacional (Linux, macOS ou Windows).
+- Siga as instruções para baixar a versão mais recente ("base"). É crucial baixar a versão diretamente do CRAN, pois os gerenciadores de pacotes de alguns sistemas operacionais (como o `get-apt` do Ubuntu) podem fornecer versões desatualizadas.
+- Execute o arquivo de instalação baixado e siga as instruções padrão, aceitando as configurações padrão.
+
+2. Instalando o RStudio:
+
+- Após a instalação do R, acesse o [site da Posit](https://posit.co/download/rstudio-desktop/) e clique para baixar a versão gratuita do RStudio Desktop.
+- Baixe o instalador apropriado para o seu sistema operacional.
+- Execute o arquivo de instalação. O RStudio detectará automaticamente a instalação do R existente.
+
+
+## Navegando na interface do RStudio
+
+Ao abrir o RStudio pela primeira vez, a interface se apresenta dividida em quatro painéis ou quadrantes principais, cada um com uma função específica:
+
+1. **Editor de *scripts*** (Superior esquerdo): Este é o seu principal espaço de trabalho. Aqui, você escreverá e salvará seus *scripts* R (arquivos com extensão `.R`). Trabalhar em um *script*, em vez de digitar comandos diretamente no console, é a base da ciência reprodutível, pois permite salvar, comentar e reutilizar seu código.
+2. **Console** (Inferior esquerdo): O console é o código R é efetivamente executado. Você pode digitar os comandos diretamente nele para testes rápidos ou executar linhas de códigos do seu *script* (utilizando o atalho `Ctrl+Enter`). A saída dos comandos também aparecerá aqui.
+3. **Ambiente e Histórico** (Superior direito): A aba *Environment* mostra todos os objetos (como *datasets*, variáveis, etc.) que foram criadas na sessão atual do R. Já a aba *History* mantém um registro de todos os comandos utilizados. 
+4. **Arquivos, Gráficos, Pacotes e Ajuda** (Inferior direita): Este painel multifuncional permite navegar pelos arquivos do seu computador (*Files*) , visualizar gráficos gerados (*Plots*), gerenciar pacotes instalados (*Packages*), e acessar documentações de ajuda do R (*Help*).
+
+É importante salientar que o RStudio permite customizações, como a alteração das posições dos painéis.
+
+## O conceito de pacotes
+
+A grande força do R reside em seu ecossistema de pacotes. Um pacote é a coleção de funções, dados e documentação que estende as capacidades iniciais do R. Para qualquer tarefa estatística ou de manipulação de dados que se possa imaginar, provavelmente existe algum pacote que a facilita. 
+
+### Instalando e Carregando Pacotes Essenciais
+
+Existe uma distinção básica a ser realizada entre instalar e carregar um pacote.
+
+- **Instalação**: É o ato de baixar o pacote do CRAN e instalá-lo no computador. Isso é realizado apenas uma vez para cada pacote.
+- **Carregamento**: É o ato de carregar o pacote instalado em sua sessão do R de forma que as funções adicionais fiquem disponíveis para uso. Isso precisa ser feito toda vez que uma sessão no R é iniciada.
+
+Para este material, os pacotes centrais são: `tidyverse`, `lme4`, `lmerTest` e `nlme`. Um dos métodos para instalar pacotes R no computador é por meio da função `install.packages()`:
+```{r instal-pkg, eval=FALSE}
+# Instala o pacote tidyverse, que inclui dplyr, ggplot2 e outros
+install.packages("tidyverse")
+
+# Instala o pacote para modelos lineares mistos
+install.packages("lme4")
+
+# Instala outros pacotes para modelos mistos
+install.packages("lmerTest")
+install.packages("nlme")
+```
+
+Após a instalação, para usar as funções de um pacote, é preciso carregá-lo com a função `library()`:
+
+```{r load-pkg, eval=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## Diretório de Trabalho e Projetos RStudio
+
+O diretório de trabalho é a pasta no seu computador onde o R irá procurar por arquivos para ler e onde, também, salvará os arquivos criados (como gráficos, *scripts* e *datasets* modificados). É possível identificar o diretório atual através do comando `getwd()` e, embora também seja possível defini-la manualmente com a função `setwd("caminho/para/sua/pasta")`, essa prática não é aconselhável, visto que o uso de caminhos de arquivos absolutos torna o código não portável; ou seja, ele não irá funcionar se você mover a pasta do projeto ou tentá-la executá-lo em outro computador. 
+
+A solução moderna e robusta para esse problema é a utilização de **Projetos RStudio**. Um projeto RStudio (extensão `.Rproj`) é um arquivo que você cria dentro de uma pasta do seu projeto de pesquisa. Ao abrir um projeto, o RStudio automaticamente define o diretório de trabalho para aquela pasta. Isso garante que todos os caminhos de arquivo do seu código possam ser relativos à raiz do projeto, tornando sua análise totalmente reprodutível e compartilhável de forma eficaz. Outra maneira de criar projetos é através do próprio RStudio, através das seguintes instruções `File > New Project > New Directory > New Project` e nesta última etapa, você escolherá um nome para o projeto e a pasta de sua pesquisa, finalizando em `Create Project`. A criação de um projeto para cada análise de pesquisa é uma prática fundamental para a organização e a reprodutibilidade científica.
+
+
+## R Básico
+
+A leitura desta sessão é aconselhada para o leitor que nunca teve contato com o R. Os tópicos introduzidos são especiais para a compreensão do que é um *dataframe*, a estrutura dos *datasets* dentro do R, e quais operações estarão sendo realizadas quando estivermos efetuando filtragens e modificações de suas colunas. Também são importantes para a compreensão do que é uma função no R.
+
+### Operadores Matemáticos
+
+Os operadores matemáticos, também conhecidos por operadores binários, dentro do ambiente R soam como familiares. A Tabela \ref{tbl-op-mat} exibe os operadores mais básicos utilizados.
+
+Para exemplificar como efetuar cálculos de expressões matemáticas no R, suponha que desenhamos calcular o valor de:
+  $$2\times 2 + \frac{4 + 4}{2}.$$
+Para isso, escrevemos `2*2 + (4+4)/2` no console para determinarmos o resultado
+```{r}
+2*2 + (4+4)/2
+```
+
+```{r tab1.1, echo=FALSE}
+#| label: tbl-op-mat
+#| tbl-cap: "Operadores matemáticos básicos."
+
+library(knitr)
+library(tibble)
+library(dplyr)
+
+tibble(
+  op = c("+", "-", "*", "/", "^"),
+  desc = c("Adição", "Subtração", "Multiplicação", "Divisão", "Exponenciação")
+) %>% 
+  kable(
+    col.names = c("Operadores", "Descrição"),
+    align = "l",
+    booktabs = TRUE
+  ) %>% 
+  kable_styling(
+    latex_options = c("hold_position", "striped")
+  )
+```
+
+### Objetos e funções
+
+O R permite guardar valores dentro de um **objeto**. Um objeto é simplesmente um nome que guarda uma determinada informação na memória do computador, que é criado por meio do operador `<-`.  Veja que no código a seguir
+```{r}
+x <- 10 # Salvando "10" em "x"
+x       # Avaliando o objeto "x"
+```
+\noindent foi salvo que a informação que `x` carrega é o valor `10`. Portanto, toda vez que o objeto `x` for avaliado, o R irá devolver o valor `10`.
+
+É importante ressaltar que há regras para a nomeação dos objetos, dentre elas, não começar com números. Assim, todos os seguintes exemplos são permitidos: `x <- 1`, `x1 <- 1`, `meu_objeto <- 1`, `meu.objeto <- 1`. Ainda, o R diferencia letras minúsculas de maiúsculas, então objetos como `y` e `Y` são diferentes.
+
+Enquanto que os objetos são nomes que salvam informações de valores, **funções** são nomes que guardam informações de um código R, retornando algum resultado programado. A sintaxe básica de uma função é `nome_funcao(arg1, arg2, ...)`. Os valores dentro dos parênteses são chamados por **argumentos**, que são informações necessárias para o bom funcionamento de uma função. Às vezes, uma função não necessita do fornecimento de argumentos específicos.
+
+Uma função simples, porém útil, é a `sum()`. Ela consiste em somar os valores passados em seu argumento. Suponha que desejamos somar `1+2+3+4+5`. Assim,
+```{r}
+sum(1,2,3,4,5)
+```
+\noindent é possível reparar que o resultado é 15.
+
+A classe de um objeto é muito importante na programação em R. É a partir disso que as funções e operadores conseguem entender o que fazer com cada objeto. Há uma infinidade de classes, dentre as mais conhecidas são: `numeric`, `character`, `data.frame`, `logical` e `factor`. Para averiguar o tipo de classe, a função `class()` retorna exatamente a classe do objeto.
+```{r}
+class("a")
+class(1)
+class(mtcars)
+class(TRUE)
+```
+
+### Vetores e *Data frames*
+
+Vetores são uma estrutura fundamental dentro do R, em especial, é a partir deles que os *data frames* são construídos. Por definição, são conjuntos indexados de valores e para criá-los, basta utilizar a função `c()` com valores separados por vírgula (ex.: `c(1,2,4,10)`). Para acessar um valor dentro de um determinado vetor, utiliza-se os colchetes `[]`:
+```{r}
+vetor <- c("a", "b", "c")
+
+# Acessando valor "b"
+vetor[2]
+```
+\noindent Um vetor só pode guardar um tipo de objeto e ele terá sempre a mesma classe dos objetos que guarda. Caso tentarmos misturar duas classes, o R vai apresentar o comportamento conhecido como **coerção**.
+```{r}
+class(c(1,2,3))
+class(vetor)
+class(c(1,2,"a","b"))
+```
+\noindent Neste caso, todos os elementos do vetor se transformaram em texto. 
+
+Assim, também, *data frames* são de extrema importância no R, visto que são os objetos que guardam os dados e são equivalentes a uma planilha do Excel. A principal característica é possuir linha e colunas. Em geral, as colunas são vetores de mesmo tamanho (ou dimensão). Um valor específico de um *data frame* pode ser acessado, também, via colchetes `[]`:
+```{r}
+class(mtcars)
+mtcars[1,2]
+```
+\noindent `mtcars` é um conjunto de dados muito conhecido na comunidade R. 
+
+### Valores especiais
+
+Valores como `NA`, `NaN`, `Inf` e `NULL` ocorrem frequentemente dentro do mundo da programação estatística no R. Em resumo:
+
+- `NA` representa a Ausência de Informação. Suponha que o vetor `idades` que representa a idade de três pessoas. Uma situação que pode ocorrer é `idades <- c(10, NA, NA)`. Portanto, não é sabido a idade das pessoas 2 e 3.
+- `NaN` representa indefinições matemáticas. Um exemplo típico é o valor $\log{-1}$, do qual $x = -1$ não pertence aos possíveis valores de saída da função logarítmica, gerando um `NaN` (*Not a number*).
+```{r}
+log(-1)
+```
+- `Inf` representa um número muito grande ou um limite matemático. Exemplos:
+```{r}
+# Número muito grande
+10^510
+# Limite matemático
+1/0
+```
+- `NULL` representa a ausência de um objeto. Muitas vezes define-se um objeto como nulo para dizer ao R que não desejamos atribuir valores a ele.
+
+
+
+
+
+

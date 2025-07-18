@@ -1,0 +1,3 @@
+# Validação e Interpretação de Modelos Mistos
+
+Após ajustar os modelos, é boa prática validá-los através de técnicas...

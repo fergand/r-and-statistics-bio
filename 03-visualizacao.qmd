@@ -1,0 +1,3 @@
+# Inferência
+
+texto teste $f(x) = ax^2$.

@@ -1,0 +1,4 @@
+# Modelos Lineares -- A Base da Modelagem
+
+Um modelo linear é definido por: 
+  $$Y = X\beta + \epsilon$$

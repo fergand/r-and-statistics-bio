@@ -1,0 +1,3 @@
+# Modelos Lineares Mistos com \texttt{lme4}
+
+O pacote `lme4` nos permite modelar...
