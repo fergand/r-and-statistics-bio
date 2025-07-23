@@ -19,10 +19,10 @@ book:
     - part: parte1-intro.qmd
       chapters:
         - 01-intro-r.qmd
-        - 02-dplyr.qmd
-        - 03-visualizacao.qmd
+        - 02-tidyverse.qmd
     - part: "Fundamentos do Pensamento Estatístico"
       chapters:
+        - 03-probabilidade.qmd
         - 04-inferencia.qmd
         - 05-delineamento.qmd
     - part: "Modelagem Estatística de Dados Biológicos"
@@ -53,8 +53,10 @@ format:
     mainfont: "Times New Roman"
     fontsize: 12pt
     number-sections: true     # Numera as seções
+    link-citations: true
     colorlinks: true          # Deixa os links internos (sumário, citações)
                               # coloridos em vez de caixas
+    
     # Aqui é onde você adiciona pacotes e comandos LaTeX
     include-in-header:
       text: |
@@ -74,8 +76,9 @@ format:
         \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
         \usepackage{booktabs}
         \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibliograficas
-        \usepackage[alf]{abntex2cite}	% Citações padrão ABNT
-
+        
+        
+        
   # Você pode adicionar outros formatos aqui, como HTML
   # html:
   #   theme: cosmo

@@ -74,6 +74,8 @@ Após a instalação, para usar as funções de um pacote, é preciso carregá-l
 library(tidyverse)
 ```
 
+Cabe ressaltar que, ao longo do uso de diversos pacotes, podem ocorrer conflitos de funções com o mesmo nome. Nesses casos, a solução mais prática é utilizar a notação `pacote::funcao` para indicar explicitamente ao R de qual biblioteca desejamos chamar a função.
+
 ## Diretório de Trabalho e Projetos RStudio
 
 O diretório de trabalho é a pasta no seu computador onde o R irá procurar por arquivos para ler e onde, também, salvará os arquivos criados (como gráficos, *scripts* e *datasets* modificados). É possível identificar o diretório atual através do comando `getwd()` e, embora também seja possível defini-la manualmente com a função `setwd("caminho/para/sua/pasta")`, essa prática não é aconselhável, visto que o uso de caminhos de arquivos absolutos torna o código não portável; ou seja, ele não irá funcionar se você mover a pasta do projeto ou tentá-la executá-lo em outro computador. 
@@ -145,6 +147,34 @@ class(mtcars)
 class(TRUE)
 ```
 
+### Importanto dados
+
+Uma atividade importante para qualquer análise estatística que vier ser feita no R é importante importar os dados para o ambiente de trabalho, que ficarão guardados dentro de um objeto no projeto RStudio -- afinal, como faríamos as análises sem os dados? No contexto da Biologia, isso costuma significar ler arquivos com medidas de peso, contagens de indivíduos, medidas de comprimento etc., geralmente armazenados em formatos de texto (`.csv` ou `.tsv`) ou planilhas (`.xlsx`). As principais funções para cada ocasião de arquivo são:
+
+- CSV com cabeçalho: 
+```{r csv-ex, eval=FALSE}
+dados <- read.csv("dados.csv",
+  header = TRUE, # indica que há cabeçalho
+  sep    = ",",  # separador vírgula
+  stringsAsFactors = FALSE # evita conversão automática em fatores
+)
+```
+- TXT ou TSV com tabulação:
+```{r txt-ex, eval=FALSE}
+dados <- read.delim("dadostsv", 
+  header = TRUE, 
+  sep    = "\t"
+)
+```
+- Planilhas no Excel (arquivos `.xlsx`):
+```{r excel-ex, eval=FALSE}
+dados <- readxl::read_excel("dados.xlsx",
+  sheet = "Planilha1" # aqui você escolhe a planilha a ser lida
+)
+```
+\noindent Ressaltamos, neste caso, a necessidade da utilização da biblioteca `readxl` para que seja possível lermos planilhas no R.
+
+
 ### Vetores e *Data frames*
 
 Vetores são uma estrutura fundamental dentro do R, em especial, é a partir deles que os *data frames* são construídos. Por definição, são conjuntos indexados de valores e para criá-los, basta utilizar a função `c()` com valores separados por vírgula (ex.: `c(1,2,4,10)`). Para acessar um valor dentro de um determinado vetor, utiliza-se os colchetes `[]`:
@@ -203,6 +233,20 @@ log(-1)
 - `NULL` representa a ausência de um objeto. Muitas vezes define-se um objeto como nulo para dizer ao R que não desejamos atribuir valores a ele.
 
 
+### Pedindo ajuda
+
+Uma das coisas que intimidam novos programadores, independente da linguagem utilizada, é a ocorrência de erros. Neste sentido, o R pode ser um grande aliado, pois ele relata mensagens, erros e avisos sobre o código no console, como se fosse uma espécie de resposta e/ou comunicação. As situações são:
+
+- `Error`: em situações de erro legítimo aparecerá mensagens do tipo `Error in ...` e tentará explicar o que há de errado. Nestas situações o código, geralmente, não é executado. Por exemplo: `Error in ggplot(...) : could not find function "ggplot"`.
+- `Warning`: em situações de avisos, o R exibirá uma mensagem do tipo `Warning: ...` e tentará explicar o motivo do aviso. Geralmente, o código será executado, mas com algumas ressalvas. Por exemplo: `Warning: Removed 2 rows containing missing values (geom_point)`.
+- `Message`: quando o texto exibido não se enquadra nas duas opções anteriores, dizemos que é apenas uma mensagem. Pense, nessa situação, que tudo está acontecendo como o esperado e está tudo bem.
+
+Quando surgir qualquer uma dessas saídas, não estaremos perdidos, pois o R oferece mecanismos para encontrarmos respostas. Afinal, nem todo mundo decorou todas as funções ou argumentos. Os principais mecanismos são:
+
+- `?função` ou `help(função)` para consultar a documentação oficial.
+- `??termo` e `help.search("termo")` para buscas por palavras-chave.
+
+Além disso, o RStudio oferece alguns [*Cheatsheets*](https://rstudio.com/resources/cheatsheets/) (resumo de códigos) que podem ajudar com determinados pacotes. E, por fim, existem grandes comunidade online, tais como: [Stack Overflow](https://stackoverflow.com/collectives/r-language) e [RStudio Community](https://forum.posit.co/) dos quais também podem serem úteis.
 
 
 
