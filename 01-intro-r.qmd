@@ -169,6 +169,21 @@ mtcars[1,2]
 ```
 \noindent `mtcars` é um conjunto de dados muito conhecido na comunidade R. 
 
+### Fatores
+
+Fatores são uma classe de objetos no R criada para representar variáveis categóricas numericamente. A característica que define essa classe é o atributo `levels`, que representam as possíveis categorias de uma variável categórica.
+
+A título de exemplificação, considere o objeto `sexo` que contém as informações do sexo de uma pessoa. As possibilidades são: `F` (feminino) e `M` (masculino). Por padrão, o R interpreta essa variável como texto (*character*), no entanto, é possível transformá-la em fator por meio da função `as.factor()`.
+```{r}
+sexo <- c("F", "F", "M", "M", "F")
+class(sexo)
+# Transformando em fator
+class(as.factor(sexo))
+as.factor(sexo)
+```
+\noindent Observa-se que a linha adicional `Levels: F M` indicam as categorias. Por padrão, o R ordena esses níveis em ordem alfabética. Para facilitar os cálculos e análises, o R interpreta os níveis categóricos como sendo números distintos, sendo assim, dentro do nosso exemplo `F` representaria o número `0` e `M` representaria o `1`.
+
+
 ### Valores especiais
 
 Valores como `NA`, `NaN`, `Inf` e `NULL` ocorrem frequentemente dentro do mundo da programação estatística no R. Em resumo:
