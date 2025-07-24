@@ -1,0 +1,1961 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  12pt,
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+    \setmainfont[]{Times New Roman}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+% header.tex
+
+% -------------------------------------------------
+% 1. Layout geral e margens
+% -------------------------------------------------
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{float}
+
+% -------------------------------------------------
+% 2. Matemática e teoremas
+% -------------------------------------------------
+\usepackage{amsmath, amsthm, amssymb}
+
+% -------------------------------------------------
+% 3. Fonte, espaçamento e microtipografia
+% -------------------------------------------------
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+
+% -------------------------------------------------
+% 4. Primeiro parágrafo e identação
+% -------------------------------------------------
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+% -------------------------------------------------
+% 5. Sumário (toc) customizado
+% -------------------------------------------------
+\usepackage{tocloft}
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
+% -------------------------------------------------
+% 6. Tabelas
+% -------------------------------------------------
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabu}
+
+% -------------------------------------------------
+% 7. Backref (referências com página)
+% -------------------------------------------------
+\usepackage[brazilian,hyperpageref]{backref}
+
+% -------------------------------------------------
+% 8. Verbose & blocos de código
+% -------------------------------------------------
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{
+	breaklines=true,
+	breakanywhere=true,
+	breaksymbolleft={}, 
+	breaksymbolright={},
+	fontsize=\small
+}
+% se você quiser que o ambiente Shaded (usado pelo quarto)
+% também ganhe fonte menor:
+\AtBeginEnvironment{Shaded}{\small}
+
+% e se algum chunk acabar usando listings:
+\usepackage{listings}
+\lstset{
+	breaklines=true,
+	breakatwhitespace=true,
+	postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+	basicstyle=\ttfamily\small,
+	columns=fullflexible
+}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Índice}
+\else
+  \newcommand\contentsname{Índice}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Lista de Figuras}
+\else
+  \newcommand\listfigurename{Lista de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Lista de Tabelas}
+\else
+  \newcommand\listtablename{Lista de Tabelas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabela}
+\else
+  \newcommand\tablename{Tabela}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listagem}
+\newcommand*\listoflistings{\listof{codelisting}{Lista de Listagens}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{brazilian}
+\ifPDFTeX
+\else
+\babelfont{rm}[]{Times New Roman}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Introdução à Estatística com R para Biólogos},
+  pdfauthor={Fernando Andrade},
+  pdflang={pt-br},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Introdução à Estatística com R para Biólogos}
+\author{Fernando Andrade}
+\date{}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Sumário}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\bookmarksetup{startatroot}
+
+\chapter*{Prefácio}\label{prefuxe1cio}
+\addcontentsline{toc}{chapter}{Prefácio}
+
+\markboth{Prefácio}{Prefácio}
+
+Essa apostila foi criada para ser um guia abrangente e conceitual para
+pesquisadores de mestrado e doutorado na área de Ciências Biológicas e
+Zootecnia, com um foco particular em estudos de aves. Reconhecendo que
+muitos biólogos possuem uma base sólida em suas áreas de especialidade
+mas podem não ter uma formação apropriada em programação e estatística
+teórica, este material busca preencher essa lacuna de maneira saudável.
+O objetivo não é apresentar um oceano de fórmulas matemáticas, mas sim
+construir uma compreensão intuitiva e rigorosa dos princípios
+estatísticos e de sua aplicação prática utilizando a linguagem de
+programação R, um forte e indispensável aliado nos tempos atuais para
+pesquisadores e cientistas de dados.
+
+A estrutura da apostila foi projetada para seguir uma progressão lógica,
+começando com as habilidades fundamentais de programação e manipulação
+de dados em R, e avançando gradualmente para modelos estatísticos mais
+complexos que são frequentemente necessários para pesquisas biológicas,
+como os modelos lineares mistos e generalizados mistos. Cada capítulo
+combina explicações conceituais, exemplos práticos contextualizados na
+ornitologia e zootecnia, e blocos de códigos em R detalhadamente
+explicados.
+
+O pressuposto é que a estatística não seja um obstáculo a ser superado,
+mas uma ferramenta poderosa para analisar criteriosamente os dados,
+planejar experimentos robustos e extrair conclusões válidas e
+significativas do trabalho de pesquisa. Ao final desta jornada, é
+esperado que o leitor estará equipado não apenas para analisar seus
+próprios dados com confiança, mas também para interpretar criticamente a
+literatura científica de sua área.
+
+Zuur et al. (\citeproc{ref-zuurAnalysingEcologicalData2007}{2007}) e
+(\citeproc{ref-zuurAnalysingEcologicalData2007}{ZUUR ET AL., 2007})
+
+\part{Ferramentas Essenciais: Dominando o R}
+
+Nesta primeira parte, o foco residirá no entendimento das ferramentas
+computacionais essenciais que fundamentam qualquer análise de dados
+moderna. Antes de mergulhar nos conceitos estatísticos propriamente
+ditos, é necessário desenvolver uma fluência básica no ambiente de
+programação que será utilizado.
+
+A abordagem que será adotada aqui prioriza a eficiência e a intuição,
+introduzindo o início do ecossistema \texttt{tidyverse}, um conjunto de
+pacotes R projetados para trabalhar em harmonia, tornando a manipulação,
+exploração e visualização de dados um processo mais humano, lógico e
+simples.
+
+Ao dominar essa ferramenta, o leitor transformará tarefas árduas de
+preparação de dados em uma parte integrada e poderosa do processo de
+descoberta científica.
+
+\chapter{Introdução}\label{introduuxe7uxe3o}
+
+Para começar essa jornada, o primeiro passo é configurar o ambiente de
+trabalho. Isso envolve a instalação de dois \emph{softwares} distintos,
+mas que trabalham juntos: R e RStudio. Compreender o funcionamento de
+cada um e como eles se interagem é fundamental para as próximas etapas.
+
+\section{O que são R e RStudio?}\label{o-que-suxe3o-r-e-rstudio}
+
+É comum que iniciantes confundam R e RStudio, mas esta distinção é
+crucial para o processo.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{R} é a linguagem de programação e o ambiente de software para
+  computação estatística e gráficos. Pode-se pensar que é o ``motor''
+  que executa todos os cálculos, análises e gera os gráficos. Além de
+  tudo, é um projeto de código aberto, gratuito e mantido por uma vasta
+  comunidade de desenvolvedores e estatísticos ao redor do mundo.
+\item
+  \textbf{RStudio} é um Ambiente de Desenvolvimento Integrado (IDE, do
+  inglês \emph{Integrated Development Environment}). Se o R é o motor do
+  carro, o RStudio é o painel, o volante, e todo o interior que torna a
+  condução do carro uma experiência agradável e gerenciável. O RStudio
+  fornece uma interface gráfica e amigável que organiza o trabalho em R,
+  facilitando a escrita de \emph{scripts} (arquivos de códigos), a
+  visualização de gráficos, o gerenciamento de pacotes (bibliotecas) e
+  muito mais. Embora seja possível utilizar o R sem o RStudio, a
+  utilização do RStudio é fortemente recomendada, pois deixa o processo
+  de análise muito mais interativo e organizado.
+\end{itemize}
+
+\section{Instalação passo a passo}\label{instalauxe7uxe3o-passo-a-passo}
+
+A instalação adequada dos programas é um pré-requisito crucial. A ordem
+de instalação é importante: \textbf{R deve ser instalado antes do
+RStudio}.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Instalando o R:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Acesse o \href{https://cran.r-project.org/}{site} do
+  \emph{Comprehensive R Archive Network} (CRAN), que é o repositório
+  oficial para o R e seus pacotes.
+\item
+  Na página inicial, selecione o link de download para o seu sistema
+  operacional (Linux, macOS ou Windows).
+\item
+  Siga as instruções para baixar a versão mais recente (``base''). É
+  crucial baixar a versão diretamente do CRAN, pois os gerenciadores de
+  pacotes de alguns sistemas operacionais (como o \texttt{get-apt} do
+  Ubuntu) podem fornecer versões desatualizadas.
+\item
+  Execute o arquivo de instalação baixado e siga as instruções padrão,
+  aceitando as configurações padrão.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Instalando o RStudio:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Após a instalação do R, acesse o
+  \href{https://posit.co/download/rstudio-desktop/}{site da Posit} e
+  clique para baixar a versão gratuita do RStudio Desktop.
+\item
+  Baixe o instalador apropriado para o seu sistema operacional.
+\item
+  Execute o arquivo de instalação. O RStudio detectará automaticamente a
+  instalação do R existente.
+\end{itemize}
+
+\section{Navegando na interface do
+RStudio}\label{navegando-na-interface-do-rstudio}
+
+Ao abrir o RStudio pela primeira vez, a interface se apresenta dividida
+em quatro painéis ou quadrantes principais, cada um com uma função
+específica:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Editor de \emph{scripts}} (Superior esquerdo): Este é o seu
+  principal espaço de trabalho. Aqui, você escreverá e salvará seus
+  \emph{scripts} R (arquivos com extensão \texttt{.R}). Trabalhar em um
+  \emph{script}, em vez de digitar comandos diretamente no console, é a
+  base da ciência reprodutível, pois permite salvar, comentar e
+  reutilizar seu código.
+\item
+  \textbf{Console} (Inferior esquerdo): O console é o código R é
+  efetivamente executado. Você pode digitar os comandos diretamente nele
+  para testes rápidos ou executar linhas de códigos do seu \emph{script}
+  (utilizando o atalho \texttt{Ctrl+Enter}). A saída dos comandos também
+  aparecerá aqui.
+\item
+  \textbf{Ambiente e Histórico} (Superior direito): A aba
+  \emph{Environment} mostra todos os objetos (como \emph{datasets},
+  variáveis, etc.) que foram criadas na sessão atual do R. Já a aba
+  \emph{History} mantém um registro de todos os comandos utilizados.
+\item
+  \textbf{Arquivos, Gráficos, Pacotes e Ajuda} (Inferior direita): Este
+  painel multifuncional permite navegar pelos arquivos do seu computador
+  (\emph{Files}) , visualizar gráficos gerados (\emph{Plots}), gerenciar
+  pacotes instalados (\emph{Packages}), e acessar documentações de ajuda
+  do R (\emph{Help}).
+\end{enumerate}
+
+É importante salientar que o RStudio permite customizações, como a
+alteração das posições dos painéis.
+
+\section{O conceito de pacotes}\label{o-conceito-de-pacotes}
+
+A grande força do R reside em seu ecossistema de pacotes. Um pacote é a
+coleção de funções, dados e documentação que estende as capacidades
+iniciais do R. Para qualquer tarefa estatística ou de manipulação de
+dados que se possa imaginar, provavelmente existe algum pacote que a
+facilita.
+
+\subsection{Instalando e Carregando Pacotes
+Essenciais}\label{instalando-e-carregando-pacotes-essenciais}
+
+Existe uma distinção básica a ser realizada entre instalar e carregar um
+pacote.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Instalação}: É o ato de baixar o pacote do CRAN e instalá-lo
+  no computador. Isso é realizado apenas uma vez para cada pacote.
+\item
+  \textbf{Carregamento}: É o ato de carregar o pacote instalado em sua
+  sessão do R de forma que as funções adicionais fiquem disponíveis para
+  uso. Isso precisa ser feito toda vez que uma sessão no R é iniciada.
+\end{itemize}
+
+Para este material, os pacotes centrais são: \texttt{tidyverse},
+\texttt{lme4}, \texttt{lmerTest} e \texttt{nlme}. Um dos métodos para
+instalar pacotes R no computador é por meio da função
+\texttt{install.packages()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Instala o pacote tidyverse, que inclui dplyr, ggplot2 e outros}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+
+\CommentTok{\# Instala o pacote para modelos lineares mistos}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"lme4"}\NormalTok{)}
+
+\CommentTok{\# Instala outros pacotes para modelos mistos}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"lmerTest"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"nlme"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Após a instalação, para usar as funções de um pacote, é preciso
+carregá-lo com a função \texttt{library()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+Cabe ressaltar que, ao longo do uso de diversos pacotes, podem ocorrer
+conflitos de funções com o mesmo nome. Nesses casos, a solução mais
+prática é utilizar a notação \texttt{pacote::funcao} para indicar
+explicitamente ao R de qual biblioteca desejamos chamar a função.
+
+\section{Diretório de Trabalho e Projetos
+RStudio}\label{diretuxf3rio-de-trabalho-e-projetos-rstudio}
+
+O diretório de trabalho é a pasta no seu computador onde o R irá
+procurar por arquivos para ler e onde, também, salvará os arquivos
+criados (como gráficos, \emph{scripts} e \emph{datasets} modificados). É
+possível identificar o diretório atual através do comando
+\texttt{getwd()} e, embora também seja possível defini-la manualmente
+com a função \texttt{setwd("caminho/para/sua/pasta")}, essa prática não
+é aconselhável, visto que o uso de caminhos de arquivos absolutos torna
+o código não portável; ou seja, ele não irá funcionar se você mover a
+pasta do projeto ou tentá-la executá-lo em outro computador.
+
+A solução moderna e robusta para esse problema é a utilização de
+\textbf{Projetos RStudio}. Um projeto RStudio (extensão \texttt{.Rproj})
+é um arquivo que você cria dentro de uma pasta do seu projeto de
+pesquisa. Ao abrir um projeto, o RStudio automaticamente define o
+diretório de trabalho para aquela pasta. Isso garante que todos os
+caminhos de arquivo do seu código possam ser relativos à raiz do
+projeto, tornando sua análise totalmente reprodutível e compartilhável
+de forma eficaz. Outra maneira de criar projetos é através do próprio
+RStudio, através das seguintes instruções
+\texttt{File\ \textgreater{}\ New\ Project\ \textgreater{}\ New\ Directory\ \textgreater{}\ New\ Project}
+e nesta última etapa, você escolherá um nome para o projeto e a pasta de
+sua pesquisa, finalizando em \texttt{Create\ Project}. A criação de um
+projeto para cada análise de pesquisa é uma prática fundamental para a
+organização e a reprodutibilidade científica.
+
+\section{R Básico}\label{r-buxe1sico}
+
+A leitura desta sessão é aconselhada para o leitor que nunca teve
+contato com o R. Os tópicos introduzidos são especiais para a
+compreensão do que é um \emph{dataframe}, a estrutura dos
+\emph{datasets} dentro do R, e quais operações estarão sendo realizadas
+quando estivermos efetuando filtragens e modificações de suas colunas.
+Também são importantes para a compreensão do que é uma função no R.
+
+\subsection{Operadores Matemáticos}\label{operadores-matemuxe1ticos}
+
+Os operadores matemáticos, também conhecidos por operadores binários,
+dentro do ambiente R soam como familiares. A Tabela \ref{tbl-op-mat}
+exibe os operadores mais básicos utilizados.
+
+Para exemplificar como efetuar cálculos de expressões matemáticas no R,
+suponha que desenhamos calcular o valor de:
+\[2\times 2 + \frac{4 + 4}{2}.\] Para isso, escrevemos
+\texttt{2*2\ +\ (4+4)/2} no console para determinarmos o resultado
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\SpecialCharTok{*}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ (}\DecValTok{4}\SpecialCharTok{+}\DecValTok{4}\NormalTok{)}\SpecialCharTok{/}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 8
+\end{verbatim}
+
+\begin{longtable}[t]{ll}
+
+\caption{\label{tbl-op-mat}Operadores matemáticos básicos.}
+
+\tabularnewline
+
+\toprule
+Operadores & Descrição\\
+\midrule
+\cellcolor{gray!10}{+} & \cellcolor{gray!10}{Adição}\\
+- & Subtração\\
+\cellcolor{gray!10}{*} & \cellcolor{gray!10}{Multiplicação}\\
+/ & Divisão\\
+\cellcolor{gray!10}{\textasciicircum{}} & \cellcolor{gray!10}{Exponenciação}\\
+\bottomrule
+
+\end{longtable}
+
+\subsection{Objetos e funções}\label{objetos-e-funuxe7uxf5es}
+
+O R permite guardar valores dentro de um \textbf{objeto}. Um objeto é
+simplesmente um nome que guarda uma determinada informação na memória do
+computador, que é criado por meio do operador \texttt{\textless{}-}.
+Veja que no código a seguir
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{10} \CommentTok{\# Salvando "10" em "x"}
+\NormalTok{x       }\CommentTok{\# Avaliando o objeto "x"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 10
+\end{verbatim}
+
+\noindent foi salvo que a informação que \texttt{x} carrega é o valor
+\texttt{10}. Portanto, toda vez que o objeto \texttt{x} for avaliado, o
+R irá devolver o valor \texttt{10}.
+
+É importante ressaltar que há regras para a nomeação dos objetos, dentre
+elas, não começar com números. Assim, todos os seguintes exemplos são
+permitidos: \texttt{x\ \textless{}-\ 1}, \texttt{x1\ \textless{}-\ 1},
+\texttt{meu\_objeto\ \textless{}-\ 1},
+\texttt{meu.objeto\ \textless{}-\ 1}. Ainda, o R diferencia letras
+minúsculas de maiúsculas, então objetos como \texttt{y} e \texttt{Y} são
+diferentes.
+
+Enquanto que os objetos são nomes que salvam informações de valores,
+\textbf{funções} são nomes que guardam informações de um código R,
+retornando algum resultado programado. A sintaxe básica de uma função é
+\texttt{nome\_funcao(arg1,\ arg2,\ ...)}. Os valores dentro dos
+parênteses são chamados por \textbf{argumentos}, que são informações
+necessárias para o bom funcionamento de uma função. Às vezes, uma função
+não necessita do fornecimento de argumentos específicos.
+
+Uma função simples, porém útil, é a \texttt{sum()}. Ela consiste em
+somar os valores passados em seu argumento. Suponha que desejamos somar
+\texttt{1+2+3+4+5}. Assim,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 15
+\end{verbatim}
+
+\noindent é possível reparar que o resultado é 15.
+
+A classe de um objeto é muito importante na programação em R. É a partir
+disso que as funções e operadores conseguem entender o que fazer com
+cada objeto. Há uma infinidade de classes, dentre as mais conhecidas
+são: \texttt{numeric}, \texttt{character}, \texttt{data.frame},
+\texttt{logical} e \texttt{factor}. Para averiguar o tipo de classe, a
+função \texttt{class()} retorna exatamente a classe do objeto.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\StringTok{"a"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "logical"
+\end{verbatim}
+
+\subsection{Importanto dados}\label{importanto-dados}
+
+Uma atividade importante para qualquer análise estatística que vier ser
+feita no R é importante importar os dados para o ambiente de trabalho,
+que ficarão guardados dentro de um objeto no projeto RStudio -- afinal,
+como faríamos as análises sem os dados? No contexto da Biologia, isso
+costuma significar ler arquivos com medidas de peso, contagens de
+indivíduos, medidas de comprimento etc., geralmente armazenados em
+formatos de texto (\texttt{.csv} ou \texttt{.tsv}) ou planilhas
+(\texttt{.xlsx}). As principais funções para cada ocasião de arquivo
+são:
+
+\begin{itemize}
+\tightlist
+\item
+  CSV com cabeçalho:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"dados.csv"}\NormalTok{,}
+  \AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\CommentTok{\# indica que há cabeçalho}
+  \AttributeTok{sep    =} \StringTok{","}\NormalTok{,  }\CommentTok{\# separador vírgula}
+  \AttributeTok{stringsAsFactors =} \ConstantTok{FALSE} \CommentTok{\# evita conversão automática em fatores}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  TXT ou TSV com tabulação:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(}\StringTok{"dadostsv"}\NormalTok{, }
+  \AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }
+  \AttributeTok{sep    =} \StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Planilhas no Excel (arquivos \texttt{.xlsx}):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados }\OtherTok{\textless{}{-}}\NormalTok{ readxl}\SpecialCharTok{::}\FunctionTok{read\_excel}\NormalTok{(}\StringTok{"dados.xlsx"}\NormalTok{,}
+  \AttributeTok{sheet =} \StringTok{"Planilha1"} \CommentTok{\# aqui você escolhe a planilha a ser lida}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\noindent Ressaltamos, neste caso, a necessidade da utilização da
+biblioteca \texttt{readxl} para que seja possível lermos planilhas no R.
+
+\subsection{\texorpdfstring{Vetores e \emph{Data
+frames}}{Vetores e Data frames}}\label{vetores-e-data-frames}
+
+Vetores são uma estrutura fundamental dentro do R, em especial, é a
+partir deles que os \emph{data frames} são construídos. Por definição,
+são conjuntos indexados de valores e para criá-los, basta utilizar a
+função \texttt{c()} com valores separados por vírgula (ex.:
+\texttt{c(1,2,4,10)}). Para acessar um valor dentro de um determinado
+vetor, utiliza-se os colchetes \texttt{{[}{]}}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vetor }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{)}
+
+\CommentTok{\# Acessando valor "b"}
+\NormalTok{vetor[}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "b"
+\end{verbatim}
+
+\noindent Um vetor só pode guardar um tipo de objeto e ele terá sempre a
+mesma classe dos objetos que guarda. Caso tentarmos misturar duas
+classes, o R vai apresentar o comportamento conhecido como
+\textbf{coerção}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(vetor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\StringTok{"a"}\NormalTok{,}\StringTok{"b"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\noindent Neste caso, todos os elementos do vetor se transformaram em
+texto.
+
+Assim, também, \emph{data frames} são de extrema importância no R, visto
+que são os objetos que guardam os dados e são equivalentes a uma
+planilha do Excel. A principal característica é possuir linha e colunas.
+Em geral, as colunas são vetores de mesmo tamanho (ou dimensão). Um
+valor específico de um \emph{data frame} pode ser acessado, também, via
+colchetes \texttt{{[}{]}}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 6
+\end{verbatim}
+
+\noindent \texttt{mtcars} é um conjunto de dados muito conhecido na
+comunidade R.
+
+\subsection{Fatores}\label{fatores}
+
+Fatores são uma classe de objetos no R criada para representar variáveis
+categóricas numericamente. A característica que define essa classe é o
+atributo \texttt{levels}, que representam as possíveis categorias de uma
+variável categórica.
+
+A título de exemplificação, considere o objeto \texttt{sexo} que contém
+as informações do sexo de uma pessoa. As possibilidades são: \texttt{F}
+(feminino) e \texttt{M} (masculino). Por padrão, o R interpreta essa
+variável como texto (\emph{character}), no entanto, é possível
+transformá-la em fator por meio da função \texttt{as.factor()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sexo }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"F"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{)}
+\FunctionTok{class}\NormalTok{(sexo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Transformando em fator}
+\FunctionTok{class}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(sexo))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "factor"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{as.factor}\NormalTok{(sexo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] F F M M F
+Levels: F M
+\end{verbatim}
+
+\noindent Observa-se que a linha adicional \texttt{Levels:\ F\ M}
+indicam as categorias. Por padrão, o R ordena esses níveis em ordem
+alfabética. Para facilitar os cálculos e análises, o R interpreta os
+níveis categóricos como sendo números distintos, sendo assim, dentro do
+nosso exemplo \texttt{F} representaria o número \texttt{0} e \texttt{M}
+representaria o \texttt{1}.
+
+\subsection{Valores especiais}\label{valores-especiais}
+
+Valores como \texttt{NA}, \texttt{NaN}, \texttt{Inf} e \texttt{NULL}
+ocorrem frequentemente dentro do mundo da programação estatística no R.
+Em resumo:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{NA} representa a Ausência de Informação. Suponha que o vetor
+  \texttt{idades} que representa a idade de três pessoas. Uma situação
+  que pode ocorrer é \texttt{idades\ \textless{}-\ c(10,\ NA,\ NA)}.
+  Portanto, não é sabido a idade das pessoas 2 e 3.
+\item
+  \texttt{NaN} representa indefinições matemáticas. Um exemplo típico é
+  o valor \(\log{-1}\), do qual \(x = -1\) não pertence aos possíveis
+  valores de saída da função logarítmica, gerando um \texttt{NaN}
+  (\emph{Not a number}).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in log(-1): NaNs produzidos
+\end{verbatim}
+
+\begin{verbatim}
+[1] NaN
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Inf} representa um número muito grande ou um limite
+  matemático. Exemplos:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Número muito grande}
+\DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{510}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] Inf
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Limite matemático}
+\DecValTok{1}\SpecialCharTok{/}\DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] Inf
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{NULL} representa a ausência de um objeto. Muitas vezes
+  define-se um objeto como nulo para dizer ao R que não desejamos
+  atribuir valores a ele.
+\end{itemize}
+
+\subsection{Pedindo ajuda}\label{pedindo-ajuda}
+
+Uma das coisas que intimidam novos programadores, independente da
+linguagem utilizada, é a ocorrência de erros. Neste sentido, o R pode
+ser um grande aliado, pois ele relata mensagens, erros e avisos sobre o
+código no console, como se fosse uma espécie de resposta e/ou
+comunicação. As situações são:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Error}: em situações de erro legítimo aparecerá mensagens do
+  tipo \texttt{Error\ in\ ...} e tentará explicar o que há de errado.
+  Nestas situações o código, geralmente, não é executado. Por exemplo:
+  \texttt{Error\ in\ ggplot(...)\ :\ could\ not\ find\ function\ "ggplot"}.
+\item
+  \texttt{Warning}: em situações de avisos, o R exibirá uma mensagem do
+  tipo \texttt{Warning:\ ...} e tentará explicar o motivo do aviso.
+  Geralmente, o código será executado, mas com algumas ressalvas. Por
+  exemplo:
+  \texttt{Warning:\ Removed\ 2\ rows\ containing\ missing\ values\ (geom\_point)}.
+\item
+  \texttt{Message}: quando o texto exibido não se enquadra nas duas
+  opções anteriores, dizemos que é apenas uma mensagem. Pense, nessa
+  situação, que tudo está acontecendo como o esperado e está tudo bem.
+\end{itemize}
+
+Quando surgir qualquer uma dessas saídas, não estaremos perdidos, pois o
+R oferece mecanismos para encontrarmos respostas. Afinal, nem todo mundo
+decorou todas as funções ou argumentos. Os principais mecanismos são:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{?função} ou \texttt{help(função)} para consultar a
+  documentação oficial.
+\item
+  \texttt{??termo} e \texttt{help.search("termo")} para buscas por
+  palavras-chave.
+\end{itemize}
+
+Além disso, o RStudio oferece alguns
+\href{https://rstudio.com/resources/cheatsheets/}{\emph{Cheatsheets}}
+(resumo de códigos) que podem ajudar com determinados pacotes. E, por
+fim, existem grandes comunidade online, tais como:
+\href{https://stackoverflow.com/collectives/r-language}{Stack Overflow}
+e \href{https://forum.posit.co/}{RStudio Community} dos quais também
+podem serem úteis.
+
+\chapter{Tidyverse}\label{tidyverse}
+
+O \texttt{tidyverse} (\citeproc{ref-wickhamWelcomeTidyverse2019}{WICKHAM
+ET AL., 2019}) é um ecossistema de pacotes R que reúne as tarefas
+essenciais de qualquer fluxo de trabalho em ciência de dados:
+importação, organização, manipulação, visualização e programação. Seu
+principal objetivo é criar uma sintaxe consistente e legível,
+facilitando a comunicação entre quem escreve o código e quem o executa.
+Note-se que, embora o tidyverse cubra grande parte do fluxo de trabalho,
+ele não inclui ferramentas específicas de modelagem estatística.
+
+Para facilitar essa integração, o \texttt{tidyverse} utiliza
+intensamente do operador pipe\footnote{A partir da versão 4.1 do R,
+  existe também o operador pipe nativo
+  \texttt{\textbar{}\textgreater{}}. No entanto, nesta apostila
+  manteremos o uso de \texttt{\%\textgreater{}\%}, amplamente adotado no
+  contexto do tidyverse.} (\texttt{\%\textgreater{}\%}) , que passa o
+resultado de uma etapa diretamente para a próxima, evitando aninhamentos
+confusos. Ao carregar o pacote, diversos módulos são automaticamente
+disponibilizados:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{{-}{-} Attaching core tidyverse packages {-}{-}{-}{-}{-}{-} tidyverse 2.0.0 {-}{-}}
+\NormalTok{✔ dplyr     1.1.4     ✔ readr     2.1.5}
+\NormalTok{✔ forcats   1.0.0     ✔ stringr   1.5.1}
+\NormalTok{✔ ggplot2   3.5.2     ✔ tibble    3.2.1}
+\NormalTok{✔ lubridate 1.9.4     ✔ tidyr     1.3.1}
+\NormalTok{✔ purrr     1.0.4     }
+\NormalTok{{-}{-} Conflicts {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} tidyverse\_conflicts() {-}{-}}
+\NormalTok{x dplyr::filter() masks stats::filter()}
+\NormalTok{x dplyr::lag()    masks stats::lag()}
+\NormalTok{i Use the conflicted package (http://conflicted.r{-}lib.org/) }
+\NormalTok{  to force all conflicts to become errors}
+\end{Highlighting}
+\end{Shaded}
+
+\noindent Entre os principais estão:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ggplot2} (visualização de dados);
+\item
+  \texttt{dplyr} (manipulação de dados);
+\item
+  \texttt{tidyr} (formatação ``\emph{long}''/``\emph{wide}'');
+\item
+  \texttt{readr} (leitura eficiente de arquivos de texto);
+\item
+  \texttt{tibble} (versão moderna do \texttt{data.frame});
+\item
+  \texttt{purrr} (programação funcional);
+\item
+  \texttt{stringr}, \texttt{forcats} e outros.
+\end{itemize}
+
+Como dito, muitos pacotes definem funções com nomes idênticos, sendo
+comum que o console exiba nomes como:
+
+\begin{verbatim}
+The following objects are masked from ‘package:stats’:
+    filter, lag
+\end{verbatim}
+
+Um pilar do \texttt{tidyverse} é a adoção do princípio \texttt{tidy}
+(\citeproc{ref-wickhamTidyData2014}{WICKHAM, 2014}), em que:
+
+\begin{itemize}
+\tightlist
+\item
+  Cada variável ocupa uma coluna;
+\item
+  Cada observação ocupa uma linha;
+\item
+  Cada tipo de entidade observacional fica em sua própria tabela.
+\end{itemize}
+
+Nesse contexto, a \textbf{entidade observacional} é o conceito central
+que define o que uma linha representa. Pode ser um paciente em um estudo
+clínico, um país em dados econômicos ou, como nos exemplos a seguir:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Aves}: Cada linha corresponde a uma única ave, registrando
+  suas características (peso, envergadura, espécie, etc.).
+\item
+  \textbf{Plantas}: Cada linha representa um vaso de planta em um
+  experimento (altura, número de folhas, tipo de solo, etc.).
+\end{itemize}
+
+A estrutura de dados que implementa essa filosofia no \texttt{tidyverse}
+é o \texttt{tibble}. Ele é a versão moderna do \texttt{data.frame},
+projetado para ser mais prático e informativo, exibindo resumos concisos
+dos dados e fornecendo diagnósticos mais úteis.
+
+Uma vez apresentada a filosofia e a estrutura de dados do
+\texttt{tidyverse}, o foco se volta para a aplicação prática. A seguir,
+a concentração do material residirá nos dois pacotes centrais do
+\texttt{tidyverse}: o \texttt{dplyr}, para manipulação de dados, e o
+\texttt{ggplot2}, para a criação de gráficos.
+
+\section{\texorpdfstring{Manipulação de dados com o pacote
+\texttt{dplyr}}{Manipulação de dados com o pacote dplyr}}\label{manipulauxe7uxe3o-de-dados-com-o-pacote-dplyr}
+
+O \texttt{dplyr} é um pacote do \texttt{tidyverse} que fornece um
+conjunto de ferramentas robustas e intuitivas para manipulação de dados.
+Os comandos oferecidos soam um tanto quanto intuitivos, correspondendo
+ações comuns na área de análise de dados. Para explorar as principais
+funções será utilizado o \emph{dataset} \texttt{penguins}, focando em
+processos de filtragem, organização, transformação e resumos dos dados,
+permitindo responder a perguntas básicas sobre a biologia e ecologia dos
+pinguins.
+
+O primeiro passo a ser feito é instalar a biblioteca
+\texttt{palmerpenguins} e, em seguida, carregá-la no ambiente de
+trabalho, para que possamos realizar uma inspeção inicial na estrutura
+dos dados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"palmerpenguins"}\NormalTok{) }\CommentTok{\# Realizar apenas uma única vez}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(palmerpenguins)}
+\end{Highlighting}
+\end{Shaded}
+
+\noindent Para carregarmos os dados sobre pinguins no ambiente de
+trabalho, podemos utilizar a função \texttt{data()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(}\StringTok{"penguins"}\NormalTok{, }\AttributeTok{package =} \StringTok{"palmerpenguins"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Podemos observar que no painel \textbf{Environment} do RStudio, aparece
+o objeto \texttt{penguins}, isso significa que o conjunto de dados está
+carregado no ambiente de trabalho e podemos dar início nas inspeções. O
+primeiro comando que será visto é o \texttt{glimpse()}. Ele exibe, de
+maneira prática e rápida, a estrutura do \emph{dataset} como: dimensão
+(número de linhas e colunas), o nome de cada coluna, o tipo de dado de
+cada coluna e as primeiras observações.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(penguins)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel~
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgerse~
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, ~
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, ~
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186~
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, ~
+$ sex               <fct> male, female, female, NA, female, male, female, male~
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007~
+\end{verbatim}
+
+A saída deste comando revela que existem 344 observações e 8 variáveis,
+sendo elas \texttt{species}, \texttt{island}, \texttt{bill\_length\_mm},
+\texttt{flipper\_length\_mm}, \texttt{body\_mass\_g}, \texttt{sex} e
+\texttt{year}, com seus respectivos tipos, como \texttt{factor} para
+\texttt{species} e \texttt{numeric} para \texttt{bill\_length\_mm}. Além
+disso, é possível observar dados ausentes em algumas variáveis,
+representados por \texttt{NA}. Em geral, nos \emph{datasets} disponíveis
+em pacotes R, é possível utilizar o comando \texttt{help(penguins)} para
+buscar informações sobre o conjunto de dados que será trabalhado.
+
+Executando o comando de ajuda, são obtidas as seguintes informações
+sobre as variáveis:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{species}: um fator que denota a espécie do pinguim (Adélie,
+  Chinstrap ou Gentoo).
+\item
+  \texttt{island}: um fator que denota ilhas no Arquipélago Palmer na
+  Antártica (Biscoe, Dream ou Torgersen).
+\item
+  \texttt{bill\_length\_mm}: um número que representa o comprimento do
+  bico (em milímetros).
+\item
+  \texttt{bill\_depth\_mm}: um número que representa a profundidade do
+  bico (em milímetros).
+\item
+  \texttt{flipper\_length\_mm}: um número inteiro que representa o
+  comprimento da nadadeira (em milímetros).
+\item
+  \texttt{body\_mass\_g}: um número inteiro que representa a massa do
+  animal (em gramas).
+\item
+  \texttt{sex}: um fator que representa o sexo do animal (feminino ou
+  masculino).
+\item
+  \texttt{year}: um número inteiro que denota o ano de estudo (2007,
+  2008 ou 2009).
+\end{itemize}
+
+Adicionalmente, também é informado que os dados foram originalmente
+publicados no estudo de Gorman et al.
+(\citeproc{ref-gormanEcologicalSexualDimorphism2014}{2014}) e que essa
+pesquisa fez parte do programa \emph{Palmer Station Long-Term Ecological
+Research} (LTER). Isso significa que o conjunto de dados que está sendo
+utilizado possui uma origem científica real, ligada a questões sobre
+como o ambiente e as diferenças entre sexos afetam a vida dessas aves.
+
+A segunda função que será vista é o \texttt{select()}. Frequentemente,
+um conjunto de dados contém mais informações do que o necessário para
+uma análise específica. Com isso em mente, a função \texttt{select()}
+permite-nos selecionar colunas de interesse. Em geral, os argumentos são
+os nomes das colunas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(species, island, sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 3
+   species island    sex   
+   <fct>   <fct>     <fct> 
+ 1 Adelie  Torgersen male  
+ 2 Adelie  Torgersen female
+ 3 Adelie  Torgersen female
+ 4 Adelie  Torgersen <NA>  
+ 5 Adelie  Torgersen female
+ 6 Adelie  Torgersen male  
+ 7 Adelie  Torgersen female
+ 8 Adelie  Torgersen male  
+ 9 Adelie  Torgersen <NA>  
+10 Adelie  Torgersen <NA>  
+# i 334 more rows
+\end{verbatim}
+
+\noindent O \texttt{dplyr} também oferece ``seletores auxiliares'' que
+tornam a seleção mais poderosa e flexível. Por exemplo, caso desejarmos
+selecionar todas as medidas biométricas contidas no \emph{dataset} que
+terminam com \texttt{\_mm}, é possível usar a função-argumento
+\texttt{ends\_with()} dentro de \texttt{select()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}
+\NormalTok{    body\_mass\_g, }\FunctionTok{ends\_with}\NormalTok{(}\StringTok{"\_mm"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 4
+   body_mass_g bill_length_mm bill_depth_mm flipper_length_mm
+         <int>          <dbl>         <dbl>             <int>
+ 1        3750           39.1          18.7               181
+ 2        3800           39.5          17.4               186
+ 3        3250           40.3          18                 195
+ 4          NA           NA            NA                  NA
+ 5        3450           36.7          19.3               193
+ 6        3650           39.3          20.6               190
+ 7        3625           38.9          17.8               181
+ 8        4675           39.2          19.6               195
+ 9        3475           34.1          18.1               193
+10        4250           42            20.2               190
+# i 334 more rows
+\end{verbatim}
+
+\noindent Outros seletores úteis incluem \texttt{starts\_with()} e
+\texttt{contains()}. Para remover colunas, utiliza-se o sinal de menos
+(\texttt{-}). Por exemplo, deseja-se remover as colunas \texttt{ano} e
+\texttt{island}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{year, }\SpecialCharTok{{-}}\NormalTok{island)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 6
+   species bill_length_mm bill_depth_mm flipper_length_mm body_mass_g sex   
+   <fct>            <dbl>         <dbl>             <int>       <int> <fct> 
+ 1 Adelie            39.1          18.7               181        3750 male  
+ 2 Adelie            39.5          17.4               186        3800 female
+ 3 Adelie            40.3          18                 195        3250 female
+ 4 Adelie            NA            NA                  NA          NA <NA>  
+ 5 Adelie            36.7          19.3               193        3450 female
+ 6 Adelie            39.3          20.6               190        3650 male  
+ 7 Adelie            38.9          17.8               181        3625 female
+ 8 Adelie            39.2          19.6               195        4675 male  
+ 9 Adelie            34.1          18.1               193        3475 <NA>  
+10 Adelie            42            20.2               190        4250 <NA>  
+# i 334 more rows
+\end{verbatim}
+
+Antes prosseguirmos para a próxima função, vale destacar que o conjunto
+de dados \texttt{penguins} é um objeto \texttt{tibble} dentro do R e,
+portanto, por mais que existam 344 observações, o \texttt{tibble} enxuga
+a visualização para somente 10, além de indicar quantas linhas ainda
+existem.
+
+A terceira função é o \texttt{filter()}. Enquanto \texttt{select()}
+trabalha nas colunas, o \texttt{filter()} trabalha nas linhas,
+permitindo-nos manter apenas as observações que satisfazem certas
+condições. É aqui que é possível responder perguntas investigadas com
+relação aos dados. Por exemplo, para encontrar todos os pinguins da
+espécie Adelie que vivem na ilha Torgersen:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{      species }\SpecialCharTok{==} \StringTok{"Adelie"}\NormalTok{, island }\SpecialCharTok{==} \StringTok{"Torgersen"}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 52 x 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   <fct>   <fct>              <dbl>         <dbl>             <int>       <int>
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# i 42 more rows
+# i 2 more variables: sex <fct>, year <int>
+\end{verbatim}
+
+Neste exemplo, as condições separadas por vírgula são unidas por um
+``E'' lógico. Também é possível utilizar o ``OU'' lógico para determinar
+pinguins mais pesados (acima de 6000g) ou com bicos muito longos (mais
+de 55mm) através do conectivo \texttt{\textbar{}}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    body\_mass\_g }\SpecialCharTok{\textgreater{}} \DecValTok{6000} \SpecialCharTok{|}\NormalTok{ bill\_length\_mm }\SpecialCharTok{\textgreater{}} \DecValTok{55}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 6 x 8
+  species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  <fct>     <fct>           <dbl>         <dbl>             <int>       <int>
+1 Gentoo    Biscoe           49.2          15.2               221        6300
+2 Gentoo    Biscoe           59.6          17                 230        6050
+3 Gentoo    Biscoe           55.9          17                 228        5600
+4 Gentoo    Biscoe           55.1          16                 230        5850
+5 Chinstrap Dream            58            17.8               181        3700
+6 Chinstrap Dream            55.8          19.8               207        4000
+# i 2 more variables: sex <fct>, year <int>
+\end{verbatim}
+
+O \texttt{filter()} também permite encontrar valores ausentes
+(\texttt{NA}s) em conjunto da função \texttt{is.na()}. Por exemplo,
+deseja-se verificar quais pinguins não tiveram seu sexo registrado:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sex))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 11 x 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   <fct>   <fct>              <dbl>         <dbl>             <int>       <int>
+ 1 Adelie  Torgersen           NA            NA                  NA          NA
+ 2 Adelie  Torgersen           34.1          18.1               193        3475
+ 3 Adelie  Torgersen           42            20.2               190        4250
+ 4 Adelie  Torgersen           37.8          17.1               186        3300
+ 5 Adelie  Torgersen           37.8          17.3               180        3700
+ 6 Adelie  Dream               37.5          18.9               179        2975
+ 7 Gentoo  Biscoe              44.5          14.3               216        4100
+ 8 Gentoo  Biscoe              46.2          14.4               214        4650
+ 9 Gentoo  Biscoe              47.3          13.8               216        4725
+10 Gentoo  Biscoe              44.5          15.7               217        4875
+11 Gentoo  Biscoe              NA            NA                  NA          NA
+# i 2 more variables: sex <fct>, year <int>
+\end{verbatim}
+
+A interpretação do \texttt{NA} é relativa ao contexto dos dados. No caso
+das observações sobre os pinguins, os valores ausentes na variável
+\texttt{sex} permite identificar pinguins que não tiveram o sexo
+avaliado, tornando um provável erro frustrante de coleta de dados para
+um objeto de investigação. O pacote \texttt{tidyr}, também do
+\texttt{tidyverse}, oferece a função \texttt{drop\_na()}, que remove
+quaisquer linhas que contenham \texttt{NA}s, permitindo a criação de um
+\emph{dataset} auxiliar:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins\_completos }\OtherTok{\textless{}{-}}\NormalTok{ penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+A quarta função que será apresentada é \texttt{arrange()}, que permite
+reordenar as linhas do dataframe com base nos valores de uma ou mais
+colunas. Isso é útil para encontrar extremos ou simplesmente para
+organizar a saída de uma forma mais lógica. Para encontrar os pinguins
+mais leves, ordenamos pela massa corporal em ordem crescente (o padrão):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(body\_mass\_g)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 8
+   species   island   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   <fct>     <fct>             <dbl>         <dbl>             <int>       <int>
+ 1 Chinstrap Dream              46.9          16.6               192        2700
+ 2 Adelie    Biscoe             36.5          16.6               181        2850
+ 3 Adelie    Biscoe             36.4          17.1               184        2850
+ 4 Adelie    Biscoe             34.5          18.1               187        2900
+ 5 Adelie    Dream              33.1          16.1               178        2900
+ 6 Adelie    Torgers~           38.6          17                 188        2900
+ 7 Chinstrap Dream              43.2          16.6               187        2900
+ 8 Adelie    Biscoe             37.9          18.6               193        2925
+ 9 Adelie    Dream              37.5          18.9               179        2975
+10 Adelie    Dream              37            16.9               185        3000
+# i 334 more rows
+# i 2 more variables: sex <fct>, year <int>
+\end{verbatim}
+
+\noindent Para ordenar os valores em ordem decrescente (do maior para o
+menor), utilizamos a função auxiliar \texttt{desc()}, desta maneira,
+encontramos os pinguins mais pesados:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(body\_mass\_g))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 8
+   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   <fct>   <fct>           <dbl>         <dbl>             <int>       <int>
+ 1 Gentoo  Biscoe           49.2          15.2               221        6300
+ 2 Gentoo  Biscoe           59.6          17                 230        6050
+ 3 Gentoo  Biscoe           51.1          16.3               220        6000
+ 4 Gentoo  Biscoe           48.8          16.2               222        6000
+ 5 Gentoo  Biscoe           45.2          16.4               223        5950
+ 6 Gentoo  Biscoe           49.8          15.9               229        5950
+ 7 Gentoo  Biscoe           48.4          14.6               213        5850
+ 8 Gentoo  Biscoe           49.3          15.7               217        5850
+ 9 Gentoo  Biscoe           55.1          16                 230        5850
+10 Gentoo  Biscoe           49.5          16.2               229        5800
+# i 334 more rows
+# i 2 more variables: sex <fct>, year <int>
+\end{verbatim}
+
+\noindent Também é possível ordenar múltiplas colunas. Por exemplo, para
+encontrar o pinguim mais pesado dentro de cada espécie:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}
+\NormalTok{    species, }\CommentTok{\# Primeiro por espécie}
+    \FunctionTok{desc}\NormalTok{(body\_mass\_g) }\CommentTok{\# Depois por massa decrescente}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   <fct>   <fct>              <dbl>         <dbl>             <int>       <int>
+ 1 Adelie  Biscoe              43.2          19                 197        4775
+ 2 Adelie  Biscoe              41            20                 203        4725
+ 3 Adelie  Torgersen           42.9          17.6               196        4700
+ 4 Adelie  Torgersen           39.2          19.6               195        4675
+ 5 Adelie  Dream               39.8          19.1               184        4650
+ 6 Adelie  Dream               39.6          18.8               190        4600
+ 7 Adelie  Biscoe              45.6          20.3               191        4600
+ 8 Adelie  Torgersen           42.5          20.7               197        4500
+ 9 Adelie  Dream               37.5          18.5               199        4475
+10 Adelie  Torgersen           41.8          19.4               198        4450
+# i 334 more rows
+# i 2 more variables: sex <fct>, year <int>
+\end{verbatim}
+
+A quinta função e, com certeza, uma das mais funcionais é a
+\texttt{mutate()}. Ela permite criar novas colunas (variáveis) que são
+funções de colunas já existentes, sem modificar as originais. Por
+exemplo, suponha que desejamos mostrar somente as espécies e massas de
+pinguins em quilogramas (kg):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{body\_mass\_kg =}\NormalTok{ body\_mass\_g}\SpecialCharTok{/}\DecValTok{1000}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(species, body\_mass\_kg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 2
+   species body_mass_kg
+   <fct>          <dbl>
+ 1 Adelie          3.75
+ 2 Adelie          3.8 
+ 3 Adelie          3.25
+ 4 Adelie         NA   
+ 5 Adelie          3.45
+ 6 Adelie          3.65
+ 7 Adelie          3.62
+ 8 Adelie          4.68
+ 9 Adelie          3.48
+10 Adelie          4.25
+# i 334 more rows
+\end{verbatim}
+
+\noindent Podemos usar \texttt{mutate()} para criar categorias. A função
+\texttt{case\_when()} é extremamente útil para criar classificações
+baseadas em condições lógicas., Suponha que desejamos criar uma
+categoria de tamanho baseada na massa corporal:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{size\_category =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      body\_mass\_g }\SpecialCharTok{\textgreater{}} \DecValTok{4750} \SpecialCharTok{\textasciitilde{}} \StringTok{"Grande"}\NormalTok{,}
+\NormalTok{      body\_mass\_g }\SpecialCharTok{\textless{}} \DecValTok{3500} \SpecialCharTok{\textasciitilde{}} \StringTok{"Pequeno"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Médio"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}
+\NormalTok{    species, body\_mass\_g, size\_category}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 344 x 3
+   species body_mass_g size_category
+   <fct>         <int> <chr>        
+ 1 Adelie         3750 Médio        
+ 2 Adelie         3800 Médio        
+ 3 Adelie         3250 Pequeno      
+ 4 Adelie           NA Médio        
+ 5 Adelie         3450 Pequeno      
+ 6 Adelie         3650 Médio        
+ 7 Adelie         3625 Médio        
+ 8 Adelie         4675 Médio        
+ 9 Adelie         3475 Pequeno      
+10 Adelie         4250 Médio        
+# i 334 more rows
+\end{verbatim}
+
+As funções \texttt{group\_by()} e \texttt{summarise()} formam uma dupla
+formidável para agrupar e resumir os dados, pertencendo ao coração da
+análise de dados. A função \texttt{summarise()} erve para calcular
+estatísticas resumidas (como média, total, mínimo etc.) e, quando usada
+em conjunto com \texttt{group\_by()} permite gerar resumos por grupo.
+
+Inicialmente, vamos utilizar o \texttt{summarise()} no \emph{dataset}
+completo para obter estatísticas globais. Não obstante, é bom frisar a
+utilização do argumento \texttt{na.rm\ =\ TRUE} para instruir a remoção
+dos valores \texttt{NA}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{massa\_media =} \FunctionTok{mean}\NormalTok{(body\_mass\_g, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{nadadeira\_max =} \FunctionTok{max}\NormalTok{(flipper\_length\_mm, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 2
+  massa_media nadadeira_max
+        <dbl>         <int>
+1       4202.           231
+\end{verbatim}
+
+No entanto, essas métricas não fornecem informações com relação as
+espécies de pinguins. Para resolver isso e possibilitar que mais
+perguntas sejam respondidas, a função \texttt{group\_by()} permite que o
+R faça operações em subconjuntos. Por exemplo, suponha que desejamos
+determinar qual é a massa corporal por espécie:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(species) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{massa\_media\_g =} \FunctionTok{mean}\NormalTok{(body\_mass\_g, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 2
+  species   massa_media_g
+  <fct>             <dbl>
+1 Adelie            3701.
+2 Chinstrap         3733.
+3 Gentoo            5076.
+\end{verbatim}
+
+\noindent Podemos fazer agrupamentos por múltiplas variáveis para
+investigações mais profundas. Por exemplo, considere que um pesquisador
+deseja explorar o dimorfismo sexual. Para isso, estatísticas por espécie
+e sexo serão calculadas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tabela\_resumo }\OtherTok{\textless{}{-}}\NormalTok{ penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{(sex) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(species, sex) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{contagem =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{massa\_media\_g =} \FunctionTok{mean}\NormalTok{(body\_mass\_g),}
+    \AttributeTok{massa\_dp\_g =} \FunctionTok{sd}\NormalTok{(body\_mass\_g),}
+    \AttributeTok{comp\_bico\_medio\_mm =} \FunctionTok{mean}\NormalTok{(bill\_length\_mm),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  )}
+\NormalTok{tabela\_resumo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+
+\caption{\label{tbl-tabela-resumo1}Estatísticas descritivas de
+características biométricas de pinguins, agrupadas por espécie e sexo.}
+
+\centering{
+
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}{llcccc}
+\toprule
+Espécies & Sexo & Contagem & Massa média (g) & Massa Desvio-padrão (g) & Comprimento médio do bico (mm)\\
+\midrule
+\cellcolor{gray!10}{Adelie} & \cellcolor{gray!10}{female} & \cellcolor{gray!10}{73} & \cellcolor{gray!10}{3368.84} & \cellcolor{gray!10}{269.38} & \cellcolor{gray!10}{37.26}\\
+Adelie & male & 73 & 4043.49 & 346.81 & 40.39\\
+\cellcolor{gray!10}{Chinstrap} & \cellcolor{gray!10}{female} & \cellcolor{gray!10}{34} & \cellcolor{gray!10}{3527.21} & \cellcolor{gray!10}{285.33} & \cellcolor{gray!10}{46.57}\\
+Chinstrap & male & 34 & 3938.97 & 362.14 & 51.09\\
+\cellcolor{gray!10}{Gentoo} & \cellcolor{gray!10}{female} & \cellcolor{gray!10}{58} & \cellcolor{gray!10}{4679.74} & \cellcolor{gray!10}{281.58} & \cellcolor{gray!10}{45.56}\\
+\addlinespace
+Gentoo & male & 61 & 5484.84 & 313.16 & 49.47\\
+\bottomrule
+\end{tabular}}
+
+}
+
+\end{table}%
+
+\noindent Vale reforçar que a Tabela~\ref{tbl-tabela-resumo1} foi gerada
+usando o \texttt{dplyr}, com as funções auxiliares \texttt{n()} para
+realizar a contagem de observações em cada grupo e
+\texttt{drop\_na(sex)} para remover as observações onde o sexo é
+desconhecido, permitindo avaliar dimorfismo sexual em todas as três
+espécies, especialmente na massa corporal. O grande potencial dessa
+tabela é obter respostas como:
+
+\begin{itemize}
+\tightlist
+\item
+  Os pinguins Gentoo são, em média, os mais pesados.
+\item
+  Dentro de cada espécie, os machos são consistentemente mais pesados e
+  têm bicos mais longo que as fêmeas.
+\end{itemize}
+
+\noindent Esses resultados permitem tirar conclusões sobre algumas
+hipóteses biológicas.
+
+Por fim, a última função que será abordada é a \texttt{recode()}. Muitas
+vezes, os nomes das categorias nos conjuntos de dados não são ideais
+para a análise ou apresentação em gráficos. Podem ser longos demais,
+estarem em outro idioma ou simplesmente não serem claros. Para isso, a
+função \texttt{recode()} permite renomear valores de uma variável
+categórica de forma simples e direta. Por exemplo, suponha que desejamos
+traduzir os termos da variável \texttt{sex} da
+Tabela~\ref{tbl-tabela-resumo1} para o português:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tabela\_resumo }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{sex =} \FunctionTok{recode}\NormalTok{(sex,}
+                 \StringTok{"female"} \OtherTok{=} \StringTok{"Fêmea"}\NormalTok{,}
+                 \StringTok{"male"} \OtherTok{=} \StringTok{"Macho"}\NormalTok{)}
+\NormalTok{  ) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+
+\caption{\label{tbl-traduzida}Tradução da variável \texttt{sexo} da
+Tabela~\ref{tbl-tabela-resumo1}.}
+
+\centering{
+
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}{llcccc}
+\toprule
+Espécies & Sexo & Contagem & Massa média (g) & Massa Desvio-padrão (g) & Comprimento médio do bico (mm)\\
+\midrule
+\cellcolor{gray!10}{Adelie} & \cellcolor{gray!10}{Fêmea} & \cellcolor{gray!10}{73} & \cellcolor{gray!10}{3368.84} & \cellcolor{gray!10}{269.38} & \cellcolor{gray!10}{37.26}\\
+Adelie & Macho & 73 & 4043.49 & 346.81 & 40.39\\
+\cellcolor{gray!10}{Chinstrap} & \cellcolor{gray!10}{Fêmea} & \cellcolor{gray!10}{34} & \cellcolor{gray!10}{3527.21} & \cellcolor{gray!10}{285.33} & \cellcolor{gray!10}{46.57}\\
+Chinstrap & Macho & 34 & 3938.97 & 362.14 & 51.09\\
+\cellcolor{gray!10}{Gentoo} & \cellcolor{gray!10}{Fêmea} & \cellcolor{gray!10}{58} & \cellcolor{gray!10}{4679.74} & \cellcolor{gray!10}{281.58} & \cellcolor{gray!10}{45.56}\\
+\addlinespace
+Gentoo & Macho & 61 & 5484.84 & 313.16 & 49.47\\
+\bottomrule
+\end{tabular}}
+
+}
+
+\end{table}%
+
+As principais funções do pacote \texttt{dplyr} que foram vistas estão
+resumidas e descritas na Tabela \ref{tbl-dplyr-fcts} e agora que
+aprendemos como manipular os dados com o \texttt{dplyr}, podemos avançar
+para a construção de gráficos com o pacote \texttt{ggplot2}.
+
+\begin{longtable}[t]{ll}
+
+\caption{\label{tbl-dplyr-fcts}Descrição das principais funções do
+\texttt{dplyr}.}
+
+\tabularnewline
+
+\toprule
+Função & Descrição\\
+\midrule
+\cellcolor{gray!10}{glimpse()} & \cellcolor{gray!10}{Inspecionar conjuntos de dados.}\\
+select() & Seleciona colunas pelo nome.\\
+\cellcolor{gray!10}{filter()} & \cellcolor{gray!10}{Filtra linhas com base em seus valores.}\\
+arrange() & Reordena as linhas.\\
+\cellcolor{gray!10}{mutate()} & \cellcolor{gray!10}{Cria novas colunas (variáveis).}\\
+\addlinespace
+group\_by() & Agrupa os dados por uma ou mais variáveis.\\
+\cellcolor{gray!10}{summarise()} & \cellcolor{gray!10}{Reduz múltiplos valores a um único resumo.}\\
+recode() & Renomeia categorias de variáveis.\\
+\cellcolor{gray!10}{n()} & \cellcolor{gray!10}{Conta o número de observações.}\\
+\bottomrule
+
+\end{longtable}
+
+\section{\texorpdfstring{A Arte da Visualização de Dados:
+\texttt{ggplot2}}{A Arte da Visualização de Dados: ggplot2}}\label{a-arte-da-visualizauxe7uxe3o-de-dados-ggplot2}
+
+\part{Fundamentos do Pensamento Estatístico}
+
+\chapter{Princípios de
+Probabilidade}\label{princuxedpios-de-probabilidade}
+
+texto teste \(f(x) = ax^2\).
+
+\chapter{A Lógica da Inferência
+Estatística}\label{a-luxf3gica-da-inferuxeancia-estatuxedstica}
+
+Sejam os testes de hipóteses \(H_0\) \emph{vs}. \(H_A\).
+
+\chapter{Delineamento de
+Experimentos}\label{delineamento-de-experimentos}
+
+Um delineamento é\ldots{}
+
+\part{Modelagem Estatística de Dados Biológicos}
+
+\chapter{Modelos Lineares -- A Base da
+Modelagem}\label{modelos-lineares-a-base-da-modelagem}
+
+Um modelo linear é definido por: \[Y = X\beta + \epsilon\]
+
+\chapter{Entendendo os Modelos
+Mistos}\label{entendendo-os-modelos-mistos}
+
+Os efeitos aleatórios são\ldots{}
+
+\chapter{\texorpdfstring{Modelos Lineares Mistos com
+\texttt{lme4}}{Modelos Lineares Mistos com }}\label{modelos-lineares-mistos-com}
+
+O pacote \texttt{lme4} nos permite modelar\ldots{}
+
+\chapter{Modelos Lineares Generalizados
+Mistos}\label{modelos-lineares-generalizados-mistos}
+
+Um GLMM é definino como sendo\ldots{}
+
+\chapter{Validação e Interpretação de Modelos
+Mistos}\label{validauxe7uxe3o-e-interpretauxe7uxe3o-de-modelos-mistos}
+
+Após ajustar os modelos, é boa prática validá-los através de
+técnicas\ldots{}
+
+\part{Aplicações Práticas e Recursos}
+
+\bookmarksetup{startatroot}
+
+\chapter*{Referências}\label{referuxeancias}
+\addcontentsline{toc}{chapter}{Referências}
+
+\markboth{Referências}{Referências}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\bibitem[\citeproctext]{ref-gormanEcologicalSexualDimorphism2014}
+GORMAN, Kristen B. \emph{et al.}
+\href{https://doi.org/10.1371/journal.pone.0090081}{Ecological {Sexual
+Dimorphism} and {Environmental Variability} within a {Community} of
+{Antarctic Penguins} ({Genus Pygoscelis})}. \textbf{PLOS ONE}, v. 9, n.
+3, p. e90081, 2014.
+
+\bibitem[\citeproctext]{ref-wickhamTidyData2014}
+WICKHAM, Hadley. \href{https://doi.org/10.18637/jss.v059.i10}{Tidy
+{Data}}. \textbf{Journal of Statistical Software}, v. 59, p. 1--23, set.
+2014.
+
+\bibitem[\citeproctext]{ref-wickhamWelcomeTidyverse2019}
+WICKHAM, Hadley \emph{et al.}
+\href{https://doi.org/10.21105/joss.01686}{Welcome to the {Tidyverse}}.
+\textbf{Journal of Open Source Software}, v. 4, n. 43, p. 1686, nov.
+2019.
+
+\bibitem[\citeproctext]{ref-zuurAnalysingEcologicalData2007}
+ZUUR, Alain F. \emph{et al.}
+\textbf{\href{https://doi.org/10.1007/978-0-387-45972-1}{Analysing
+{Ecological Data}}}. New York, NY: Springer, 2007.
+
+\end{CSLReferences}
+
+
+
+
+\end{document}

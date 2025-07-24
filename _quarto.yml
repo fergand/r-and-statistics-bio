@@ -48,6 +48,8 @@ format:
   # Configurações para o PDF
   pdf:
     documentclass: scrreprt   # Classe do documento LaTeX
+    keep-tex: true
+    code-block-font-size: small
     toc: true                 # Gera o sumário (Table of Contents)
     toc-title: "Sumário"
     mainfont: "Times New Roman"
@@ -58,29 +60,7 @@ format:
                               # coloridos em vez de caixas
     
     # Aqui é onde você adiciona pacotes e comandos LaTeX
-    include-in-header:
-      text: |
-        \usepackage{geometry}
-        \geometry{margin=1in}
-        \usepackage{amsmath, amsthm, amssymb}
-        \usepackage{indentfirst}
-        \setlength{\parindent}{1.25cm} 
-        \setlength{\parskip}{0pt}      
-        \usepackage{microtype}
-        \usepackage{lmodern}
-        \usepackage{textcomp}
-        \usepackage{setspace}
-        \onehalfspacing
-        \usepackage{tocloft}
-        \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
-        \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
-        \usepackage{booktabs}
-        \usepackage{longtable}
-        \usepackage{array}
-        \usepackage{multirow}
-        \usepackage{tabu}
-        \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibliograficas
-        
+    include-in-header: header.tex
         
         
   # Você pode adicionar outros formatos aqui, como HTML

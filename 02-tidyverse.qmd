@@ -5,9 +5,9 @@ library(kableExtra)
 
 # Tidyverse
 
-O `tidyverse` [@wickhamWelcomeTidyverse2019] é um conjunto de pacotes R que reúne as tarefas centrais de qualquer projeto de ciência de dados: importação, organização, manipulação, visualização e programação. Seu principal objetivo é criar uma sintaxe consistente e legível, facilitando a comunicação entre quem escreve o código e quem o executa. Note-se que, embora o tidyverse cubra grande parte do fluxo de trabalho, ele não inclui ferramentas específicas de modelagem estatística.
+O `tidyverse` [@wickhamWelcomeTidyverse2019] é um ecossistema de pacotes R que reúne as tarefas essenciais de qualquer fluxo de trabalho em ciência de dados: importação, organização, manipulação, visualização e programação. Seu principal objetivo é criar uma sintaxe consistente e legível, facilitando a comunicação entre quem escreve o código e quem o executa. Note-se que, embora o tidyverse cubra grande parte do fluxo de trabalho, ele não inclui ferramentas específicas de modelagem estatística.
 
-Para facilitar essa integração, o `tidyverse` utiliza intensamente do operador pipe (`%>%`), que passa o resultado de uma etapa diretamente para a próxima, evitando aninhamentos confusos. Ao carregar o pacote, diversos módulos são automaticamente disponibilizados:
+Para facilitar essa integração, o `tidyverse` utiliza intensamente do operador pipe^[A partir da versão 4.1 do R, existe também o operador pipe nativo `|>`. No entanto, nesta apostila manteremos o uso de `%>%`, amplamente adotado no contexto do tidyverse.] (`%>%`) , que passa o resultado de uma etapa diretamente para a próxima, evitando aninhamentos confusos. Ao carregar o pacote, diversos módulos são automaticamente disponibilizados:
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 ```
@@ -56,9 +56,9 @@ A estrutura de dados que implementa essa filosofia no `tidyverse` é o `tibble`.
 Uma vez apresentada a filosofia e a estrutura de dados do `tidyverse`, o foco se volta para a aplicação prática. A seguir, a concentração do material residirá nos dois pacotes centrais do `tidyverse`: o `dplyr`, para manipulação de dados, e o `ggplot2`, para a criação de gráficos. 
 
 
-## A Gramática da Manipulação de Dados: `dplyr`
+## Manipulação de dados com o pacote `dplyr`
 
-O `dplyr` é um pacote pertencente ao `tidyverse`, que fornece uma ferramentas robustas para manipulação de dados. Os comandos oferecidos soam um tanto quanto intuitivos, correspondendo ações comuns na área de análise de dados. Para explorar as principais funções será utilizado o *dataset* `penguins`, focando em processos de filtragem, organização, transformação e resumos dos dados, possibilitando possíveis perguntais básicas sobre a biologia e ecologia dos pinguins. 
+O `dplyr` é um pacote do `tidyverse` que fornece um conjunto de ferramentas robustas e intuitivas para manipulação de dados. Os comandos oferecidos soam um tanto quanto intuitivos, correspondendo ações comuns na área de análise de dados. Para explorar as principais funções será utilizado o *dataset* `penguins`, focando em processos de filtragem, organização, transformação e resumos dos dados, permitindo responder a perguntas básicas sobre a biologia e ecologia dos pinguins.
 
 O primeiro passo a ser feito é instalar a biblioteca `palmerpenguins` e, em seguida, carregá-la no ambiente de trabalho, para que possamos realizar uma inspeção inicial na estrutura dos dados.
 ```{r dataset-ins, eval=FALSE}
@@ -75,7 +75,7 @@ Podemos observar que no painel **Environment** do RStudio, aparece o objeto `pen
 ```{r}
 glimpse(penguins)
 ```
-A saída deste comando revela que existem 344 observações e 8 variáveis, sendo elas `species`, `island`, `bill_length_mm`, `flipper_length_mm`, `body_mass_g`, `sex` e `year`, com seus respectivos tipos, como `factor` para `species` e `numeric`para `bill_length_mn`. Além disso, é possível observar dados ausentes em algumas variáveis, representados por `NA`. Em geral, nos *datasets* disponíveis em pacotes R, é possível utilizar o comando `help(penguins)` para buscar informações sobre o conjunto de dados que será trabalhado. 
+A saída deste comando revela que existem 344 observações e 8 variáveis, sendo elas `species`, `island`, `bill_length_mm`, `flipper_length_mm`, `body_mass_g`, `sex` e `year`, com seus respectivos tipos, como `factor` para `species` e `numeric` para `bill_length_mm`. Além disso, é possível observar dados ausentes em algumas variáveis, representados por `NA`. Em geral, nos *datasets* disponíveis em pacotes R, é possível utilizar o comando `help(penguins)` para buscar informações sobre o conjunto de dados que será trabalhado. 
 
 Executando o comando de ajuda, são obtidas as seguintes informações sobre as variáveis:
 
@@ -95,7 +95,7 @@ A segunda função que será vista é o `select()`. Frequentemente, um conjunto 
 penguins %>% 
   select(species, island, sex)
 ```
-\noindent O `dplyr` também oferece "seletores auxiliares" que tornam a seleção mais poderosa e flexível. Por exemplo, na ocasião de queremos todas as medidas biométricas contidas no *dataset* que terminam com `_mm`, é possível usar a função-argumento `ends_with()` dentro de `select()`:
+\noindent O `dplyr` também oferece "seletores auxiliares" que tornam a seleção mais poderosa e flexível. Por exemplo, caso desejarmos selecionar todas as medidas biométricas contidas no *dataset* que terminam com `_mm`, é possível usar a função-argumento `ends_with()` dentro de `select()`:
 ```{r}
 penguins %>% 
   select(
@@ -142,7 +142,7 @@ A quarta função que será apresentada é `arrange()`, que permite reordenar as
 penguins %>% 
   arrange(body_mass_g)
 ```
-\noindent Para determinar os mais pesados, utiliza-se a função auxiliar `desc()` para ordenar em ordem decrescente:
+\noindent Para ordenar os valores em ordem decrescente (do maior para o menor), utilizamos a função auxiliar `desc()`, desta maneira, encontramos os pinguins mais pesados:
 ```{r}
 penguins %>% 
   arrange(desc(body_mass_g))
@@ -162,7 +162,8 @@ penguins %>%
   mutate(body_mass_kg = body_mass_g/1000) %>% 
   select(species, body_mass_kg)
 ```
-\noindent Podemos usar `mutate()` para criar categorias. A função `case_when()` é extremamente útil para auxiliar nessa atividade, pois permite definir uma série de condições. Suponha que desejamos criar uma categoria de tamanho baseada na massa corporal:
+\noindent Podemos usar `mutate()` para criar categorias. A função `case_when()` é extremamente útil para criar classificações baseadas em condições lógicas.,
+Suponha que desejamos criar uma categoria de tamanho baseada na massa corporal:
 ```{r}
 penguins %>% 
   mutate(
@@ -177,7 +178,7 @@ penguins %>%
   )
 ```
 
-As funções `group_by()` e `summarise()` formam uma dupla formidável para agrupar e resumir os dados, pertencendo ao coração da análise de dados. O `summarise()` colapse o *data frame* em uma única linha de resumo estatísticos, enquanto `group_by()` muda o escopo da análise, fazendo com que as operações subsequentes sejam realizadas por grupo.
+As funções `group_by()` e `summarise()` formam uma dupla formidável para agrupar e resumir os dados, pertencendo ao coração da análise de dados. A função `summarise()` erve para calcular estatísticas resumidas (como média, total, mínimo etc.) e, quando usada em conjunto com `group_by()` permite gerar resumos por grupo.
 
 Inicialmente, vamos utilizar o `summarise()` no *dataset* completo para obter estatísticas globais. Não obstante, é bom frisar a utilização do argumento `na.rm = TRUE` para instruir a remoção dos valores `NA`.
 ```{r}
@@ -235,9 +236,9 @@ tabela_resumo %>%
 - Os pinguins Gentoo são, em média, os mais pesados.
 - Dentro de cada espécie, os machos são consistentemente mais pesados e têm bicos mais longo que as fêmeas.
 
-\noindent Permitindo conclusões de hipóteses biológicas. 
+\noindent Esses resultados permitem tirar conclusões sobre algumas hipóteses biológicas. 
 
-Por fim, a última função que será abordada é a `recode()`. Muitas vezes, os nomes das categorias nos conjuntos de dados não ideais para a análise ou apresentação em gráficos. Podem ser longos demais, estarem em outro idioma ou simplesmente não serem claros. Para isso, a função `recode()` permite renomear valores de uma variável categórica de forma simples e direta. Por exemplo, suponha que desejamos traduzir os termos da variável `sex` da @tbl-tabela-resumo1 para o português:
+Por fim, a última função que será abordada é a `recode()`. Muitas vezes, os nomes das categorias nos conjuntos de dados não são ideais para a análise ou apresentação em gráficos. Podem ser longos demais, estarem em outro idioma ou simplesmente não serem claros. Para isso, a função `recode()` permite renomear valores de uma variável categórica de forma simples e direta. Por exemplo, suponha que desejamos traduzir os termos da variável `sex` da @tbl-tabela-resumo1 para o português:
 ```{r, results='hide'}
 tabela_resumo %>% 
   mutate(
@@ -274,16 +275,18 @@ tabela_resumo %>%
 ```
 
 
-As principais funções vistas do pacote `dplyr` estão resumidas e descritas na Tabela \ref{tbl-dplyr-fcts}.
+As principais funções do pacote `dplyr` que foram vistas estão resumidas e descritas na Tabela \ref{tbl-dplyr-fcts} e agora que aprendemos como manipular os dados com o `dplyr`, podemos avançar para a construção de gráficos com o pacote `ggplot2`.
+
 
 ```{r dplyr-fcts, echo=FALSE}
 #| label: tbl-dplyr-fcts
 #| tbl-cap: "Descrição das principais funções do \\texttt{dplyr}."
+#| tbl-pos: "b"
 
 tibble(
   fcts = c("glimpse()", "select()", "filter()", 
            "arrange()", "mutate()", "group_by()", 
-           "summarise()", "recode()"),
+           "summarise()", "recode()", "n()"),
   desc = c("Inspecionar conjuntos de dados.",
           "Seleciona colunas pelo nome.",
            "Filtra linhas com base em seus valores.",
@@ -291,7 +294,8 @@ tibble(
            "Cria novas colunas (variáveis).",
            "Agrupa os dados por uma ou mais variáveis.",
            "Reduz múltiplos valores a um único resumo.",
-           "Renomear categorias de variáveis.")
+           "Renomeia categorias de variáveis.",
+           "Conta o número de observações.")
 ) %>% 
   kable(
     col.names = c("Função", "Descrição"),
@@ -299,7 +303,7 @@ tibble(
     align = "l"
   ) %>% 
   kable_styling(
-    latex_options = c("hold_position", "striped")
+    latex_options = c("striped")
   )
 ```
 
