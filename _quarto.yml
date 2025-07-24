@@ -75,6 +75,10 @@ format:
         \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
         \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
         \usepackage{booktabs}
+        \usepackage{longtable}
+        \usepackage{array}
+        \usepackage{multirow}
+        \usepackage{tabu}
         \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibliograficas
         
         

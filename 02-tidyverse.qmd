@@ -1,3 +1,8 @@
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+```
+
+
 # Tidyverse
 
 O `tidyverse` [@wickhamWelcomeTidyverse2019] é um conjunto de pacotes R que reúne as tarefas centrais de qualquer projeto de ciência de dados: importação, organização, manipulação, visualização e programação. Seu principal objetivo é criar uma sintaxe consistente e legível, facilitando a comunicação entre quem escreve o código e quem o executa. Note-se que, embora o tidyverse cubra grande parte do fluxo de trabalho, ele não inclui ferramentas específicas de modelagem estatística.
@@ -53,7 +58,250 @@ Uma vez apresentada a filosofia e a estrutura de dados do `tidyverse`, o foco se
 
 ## A Gramática da Manipulação de Dados: `dplyr`
 
+O `dplyr` é um pacote pertencente ao `tidyverse`, que fornece uma ferramentas robustas para manipulação de dados. Os comandos oferecidos soam um tanto quanto intuitivos, correspondendo ações comuns na área de análise de dados. Para explorar as principais funções será utilizado o *dataset* `penguins`, focando em processos de filtragem, organização, transformação e resumos dos dados, possibilitando possíveis perguntais básicas sobre a biologia e ecologia dos pinguins. 
 
+O primeiro passo a ser feito é instalar a biblioteca `palmerpenguins` e, em seguida, carregá-la no ambiente de trabalho, para que possamos realizar uma inspeção inicial na estrutura dos dados.
+```{r dataset-ins, eval=FALSE}
+install.packages("palmerpenguins") # Realizar apenas uma única vez
+```
+```{r, message=FALSE, warning=FALSE}
+library(palmerpenguins)
+```
+\noindent Para carregarmos os dados sobre pinguins no ambiente de trabalho, podemos utilizar a função `data()`:
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+Podemos observar que no painel **Environment** do RStudio, aparece o objeto `penguins`, isso significa que o conjunto de dados está carregado no ambiente de trabalho e podemos dar início nas inspeções. O primeiro comando que será visto é o `glimpse()`. Ele exibe, de maneira prática e rápida, a estrutura do *dataset* como: dimensão (número de linhas e colunas), o nome de cada coluna, o tipo de dado de cada coluna e as primeiras observações. 
+```{r}
+glimpse(penguins)
+```
+A saída deste comando revela que existem 344 observações e 8 variáveis, sendo elas `species`, `island`, `bill_length_mm`, `flipper_length_mm`, `body_mass_g`, `sex` e `year`, com seus respectivos tipos, como `factor` para `species` e `numeric`para `bill_length_mn`. Além disso, é possível observar dados ausentes em algumas variáveis, representados por `NA`. Em geral, nos *datasets* disponíveis em pacotes R, é possível utilizar o comando `help(penguins)` para buscar informações sobre o conjunto de dados que será trabalhado. 
+
+Executando o comando de ajuda, são obtidas as seguintes informações sobre as variáveis:
+
+- `species`: um fator que denota a espécie do pinguim (Adélie, Chinstrap ou Gentoo).
+- `island`: um fator que denota ilhas no Arquipélago Palmer na Antártica (Biscoe, Dream ou Torgersen).
+- `bill_length_mm`: um número que representa o comprimento do bico (em milímetros).
+- `bill_depth_mm`: um número que representa a profundidade do bico (em milímetros).
+- `flipper_length_mm`: um número inteiro que representa o comprimento da nadadeira (em milímetros).
+- `body_mass_g`: um número inteiro que representa a massa do animal (em gramas).
+- `sex`: um fator que representa o sexo do animal (feminino ou masculino).
+- `year`: um número inteiro que denota o ano de estudo (2007, 2008 ou 2009).
+
+Adicionalmente, também é informado que os dados foram originalmente publicados no estudo de @gormanEcologicalSexualDimorphism2014 e que essa pesquisa fez parte do programa *Palmer Station Long-Term Ecological Research* (LTER). Isso significa que o conjunto de dados que está sendo utilizado possui uma origem científica real, ligada a questões sobre como o ambiente e as diferenças entre sexos afetam a vida dessas aves.
+
+A segunda função que será vista é o `select()`. Frequentemente, um conjunto de dados contém mais informações do que o necessário para uma análise específica. Com isso em mente, a função `select()` permite-nos selecionar colunas de interesse. Em geral, os argumentos são os nomes das colunas.
+```{r}
+penguins %>% 
+  select(species, island, sex)
+```
+\noindent O `dplyr` também oferece "seletores auxiliares" que tornam a seleção mais poderosa e flexível. Por exemplo, na ocasião de queremos todas as medidas biométricas contidas no *dataset* que terminam com `_mm`, é possível usar a função-argumento `ends_with()` dentro de `select()`:
+```{r}
+penguins %>% 
+  select(
+    body_mass_g, ends_with("_mm")
+  )
+```
+\noindent Outros seletores úteis incluem `starts_with()` e `contains()`. Para remover colunas, utiliza-se o sinal de menos (`-`). Por exemplo, deseja-se remover as colunas `ano` e `island`:
+```{r}
+penguins %>% 
+  select(-year, -island)
+```
+
+Antes prosseguirmos para a próxima função, vale destacar que o conjunto de dados `penguins` é um objeto `tibble` dentro do R e, portanto, por mais que existam 344 observações, o `tibble` enxuga a visualização para somente 10, além de indicar quantas linhas ainda existem. 
+
+A terceira função é o `filter()`. Enquanto `select()` trabalha nas colunas, o `filter()` trabalha nas linhas, permitindo-nos manter apenas as observações que satisfazem certas condições. É aqui que é possível responder perguntas investigadas com relação aos dados. Por exemplo, para encontrar todos os pinguins da espécie Adelie que vivem na ilha Torgersen:
+```{r}
+penguins %>% 
+  filter(
+      species == "Adelie", island == "Torgersen"
+    )
+```
+Neste exemplo, as condições separadas por vírgula são unidas por um "E" lógico. Também é possível utilizar o "OU" lógico para determinar  pinguins mais pesados (acima de 6000g) ou com bicos muito longos (mais de 55mm) através do conectivo `|`:
+```{r}
+penguins %>% 
+  filter(
+    body_mass_g > 6000 | bill_length_mm > 55
+  )
+```
+
+O `filter()` também permite encontrar valores ausentes (`NA`s) em conjunto da função `is.na()`. Por exemplo, deseja-se verificar quais pinguins não tiveram seu sexo registrado:
+```{r}
+penguins %>% 
+  filter(is.na(sex))
+```
+
+A interpretação do `NA` é relativa ao contexto dos dados. No caso das observações sobre os pinguins, os valores ausentes na variável `sex` permite identificar pinguins que não tiveram o sexo avaliado, tornando um provável erro frustrante de coleta de dados para um objeto de investigação. O pacote `tidyr`, também do `tidyverse`, oferece a função `drop_na()`, que remove quaisquer linhas que contenham `NA`s, permitindo a criação de um *dataset* auxiliar:
+```{r}
+penguins_completos <- penguins %>% 
+  drop_na()
+```
+
+A quarta função que será apresentada é `arrange()`, que permite reordenar as linhas do dataframe com base nos valores de uma ou mais colunas. Isso é útil para encontrar extremos ou simplesmente para organizar a saída de uma forma mais lógica. Para encontrar os pinguins mais leves, ordenamos pela massa corporal em ordem crescente (o padrão):
+```{r}
+penguins %>% 
+  arrange(body_mass_g)
+```
+\noindent Para determinar os mais pesados, utiliza-se a função auxiliar `desc()` para ordenar em ordem decrescente:
+```{r}
+penguins %>% 
+  arrange(desc(body_mass_g))
+```
+\noindent Também é possível ordenar múltiplas colunas. Por exemplo, para encontrar o pinguim mais pesado dentro de cada espécie:
+```{r}
+penguins %>% 
+  arrange(
+    species, # Primeiro por espécie
+    desc(body_mass_g) # Depois por massa decrescente
+  )
+```
+
+A quinta função e, com certeza, uma das mais funcionais é a `mutate()`. Ela permite criar novas colunas (variáveis) que são funções de colunas já existentes, sem modificar as originais. Por exemplo, suponha que desejamos mostrar somente as espécies e massas de pinguins em quilogramas (kg):
+```{r}
+penguins %>% 
+  mutate(body_mass_kg = body_mass_g/1000) %>% 
+  select(species, body_mass_kg)
+```
+\noindent Podemos usar `mutate()` para criar categorias. A função `case_when()` é extremamente útil para auxiliar nessa atividade, pois permite definir uma série de condições. Suponha que desejamos criar uma categoria de tamanho baseada na massa corporal:
+```{r}
+penguins %>% 
+  mutate(
+    size_category = case_when(
+      body_mass_g > 4750 ~ "Grande",
+      body_mass_g < 3500 ~ "Pequeno",
+      TRUE ~ "Médio"
+    )
+  ) %>% 
+  select(
+    species, body_mass_g, size_category
+  )
+```
+
+As funções `group_by()` e `summarise()` formam uma dupla formidável para agrupar e resumir os dados, pertencendo ao coração da análise de dados. O `summarise()` colapse o *data frame* em uma única linha de resumo estatísticos, enquanto `group_by()` muda o escopo da análise, fazendo com que as operações subsequentes sejam realizadas por grupo.
+
+Inicialmente, vamos utilizar o `summarise()` no *dataset* completo para obter estatísticas globais. Não obstante, é bom frisar a utilização do argumento `na.rm = TRUE` para instruir a remoção dos valores `NA`.
+```{r}
+penguins %>% 
+  summarise(
+    massa_media = mean(body_mass_g, na.rm = TRUE),
+    nadadeira_max = max(flipper_length_mm, na.rm = TRUE)
+  )
+```
+No entanto, essas métricas não fornecem informações com relação as espécies de pinguins. Para resolver isso e possibilitar que mais perguntas sejam respondidas, a função `group_by()` permite que o R faça operações em subconjuntos. Por exemplo, suponha que desejamos determinar qual é a massa corporal por espécie:
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarise(
+    massa_media_g = mean(body_mass_g, na.rm = TRUE)
+  )
+```
+\noindent Podemos fazer agrupamentos por múltiplas variáveis para investigações mais profundas. Por exemplo, considere que um pesquisador deseja explorar o dimorfismo sexual. Para isso, estatísticas por espécie e sexo serão calculadas. 
+```{r, results='hide'}
+tabela_resumo <- penguins %>% 
+  drop_na(sex) %>% 
+  group_by(species, sex) %>% 
+  summarise(
+    contagem = n(),
+    massa_media_g = mean(body_mass_g),
+    massa_dp_g = sd(body_mass_g),
+    comp_bico_medio_mm = mean(bill_length_mm),
+    .groups = "drop"
+  )
+tabela_resumo
+```
+```{r, echo=FALSE}
+#| label: tbl-tabela-resumo1
+#| tbl-cap: "Estatísticas descritivas de características biométricas de pinguins, agrupadas por espécie e sexo."
+#| tbl-pos: "H"
+
+tabela_resumo %>% 
+  kable(
+    col.names = c("Espécies", "Sexo", "Contagem",
+                  "Massa média (g)", 
+                  "Massa Desvio-padrão (g)",
+                  "Comprimento médio do bico (mm)"),
+    align = c(rep("l", 2), rep("c", 4)),
+    booktabs = TRUE,
+    format = "latex",
+    digits = 2
+  ) %>% 
+  kable_styling(
+    latex_options = c("striped", "scale_down"),
+    full_width = FALSE
+  )
+```
+\noindent Vale reforçar que a @tbl-tabela-resumo1 foi gerada usando o `dplyr`, com as funções auxiliares `n()` para realizar a contagem de observações em cada grupo e `drop_na(sex)` para remover as observações onde o sexo é desconhecido, permitindo avaliar dimorfismo sexual em todas as três espécies, especialmente na massa corporal. O grande potencial dessa tabela é obter respostas como:
+
+- Os pinguins Gentoo são, em média, os mais pesados.
+- Dentro de cada espécie, os machos são consistentemente mais pesados e têm bicos mais longo que as fêmeas.
+
+\noindent Permitindo conclusões de hipóteses biológicas. 
+
+Por fim, a última função que será abordada é a `recode()`. Muitas vezes, os nomes das categorias nos conjuntos de dados não ideais para a análise ou apresentação em gráficos. Podem ser longos demais, estarem em outro idioma ou simplesmente não serem claros. Para isso, a função `recode()` permite renomear valores de uma variável categórica de forma simples e direta. Por exemplo, suponha que desejamos traduzir os termos da variável `sex` da @tbl-tabela-resumo1 para o português:
+```{r, results='hide'}
+tabela_resumo %>% 
+  mutate(
+    sex = recode(sex,
+                 "female" = "Fêmea",
+                 "male" = "Macho")
+  ) 
+```
+```{r, echo=FALSE}
+#| label: tbl-traduzida
+#| tbl-cap: "Tradução da variável `sexo` da @tbl-tabela-resumo1."
+#| tbl-pos: "H"
+
+tabela_resumo %>% 
+  mutate(
+    sex = recode(sex,
+                 "female" = "Fêmea",
+                 "male" = "Macho")
+  ) %>% 
+  kable(
+    col.names = c("Espécies", "Sexo", "Contagem",
+                  "Massa média (g)", 
+                  "Massa Desvio-padrão (g)",
+                  "Comprimento médio do bico (mm)"),
+    align = c(rep("l", 2), rep("c", 4)),
+    booktabs = TRUE,
+    format = "latex",
+    digits = 2
+  ) %>% 
+  kable_styling(
+    latex_options = c("striped", "scale_down"),
+    full_width = FALSE
+  ) 
+```
+
+
+As principais funções vistas do pacote `dplyr` estão resumidas e descritas na Tabela \ref{tbl-dplyr-fcts}.
+
+```{r dplyr-fcts, echo=FALSE}
+#| label: tbl-dplyr-fcts
+#| tbl-cap: "Descrição das principais funções do \\texttt{dplyr}."
+
+tibble(
+  fcts = c("glimpse()", "select()", "filter()", 
+           "arrange()", "mutate()", "group_by()", 
+           "summarise()", "recode()"),
+  desc = c("Inspecionar conjuntos de dados.",
+          "Seleciona colunas pelo nome.",
+           "Filtra linhas com base em seus valores.",
+           "Reordena as linhas.",
+           "Cria novas colunas (variáveis).",
+           "Agrupa os dados por uma ou mais variáveis.",
+           "Reduz múltiplos valores a um único resumo.",
+           "Renomear categorias de variáveis.")
+) %>% 
+  kable(
+    col.names = c("Função", "Descrição"),
+    booktabs = TRUE, 
+    align = "l"
+  ) %>% 
+  kable_styling(
+    latex_options = c("hold_position", "striped")
+  )
+```
 
 
 

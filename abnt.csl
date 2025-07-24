@@ -159,7 +159,7 @@ aparecera a expess o 'et. al.'. Na regra da ABNT 2023 essa expressao deve aparec
   <macro name="author-short">
   <names variable="author">
     <name form="short" name-as-sort-order="all" sort-separator=", " initialize="false" initialize-with=". " delimiter="; " delimiter-precedes-last="never">
-      <name-part name="family" text-case="uppercase"/>
+      <name-part name="family" text-case="capitalize-first"/>
       <name-part name="given"/>
     </name>
     <substitute>
@@ -395,7 +395,7 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
       <key variable="issued"/>
       <!--Depois o ano-->
     </sort>
-    <layout prefix="(" suffix=")" delimiter="; ">
+    <layout prefix="(" suffix=")" delimiter="; " text-case="uppercase">
       <!--Entre parenteses separando os autores com ponto-e-virgula-->
       <group>
         <text suffix=", " macro="author-short"/>
