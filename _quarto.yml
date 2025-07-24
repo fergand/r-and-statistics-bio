@@ -48,7 +48,6 @@ format:
   # Configurações para o PDF
   pdf:
     documentclass: scrreprt   # Classe do documento LaTeX
-    keep-tex: true
     code-block-font-size: small
     toc: true                 # Gera o sumário (Table of Contents)
     toc-title: "Sumário"
