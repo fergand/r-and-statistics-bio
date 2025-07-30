@@ -34,7 +34,7 @@ i Use the conflicted package (http://conflicted.r-lib.org/)
 - `purrr` (programação funcional);
 - `stringr`, `forcats` e outros.
 
-Como dito, muitos pacotes definem funções com nomes idênticos, sendo comum que o console exiba nomes como:
+Como dito, muitos pacotes definem funções com nomes idênticos, sendo costatumum que o console exiba nomes como:
 ```
 The following objects are masked from ‘package:stats’:
     filter, lag
@@ -83,7 +83,7 @@ Executando o comando de ajuda, são obtidas as seguintes informações sobre as 
 - `island`: um fator que denota ilhas no Arquipélago Palmer na Antártica (Biscoe, Dream ou Torgersen).
 - `bill_length_mm`: um número que representa o comprimento do bico (em milímetros).
 - `bill_depth_mm`: um número que representa a profundidade do bico (em milímetros).
-- `flipper_length_mm`: um número inteiro que representa o comprimento da nadadeira (em milímetros).
+- `flipper_length_mm`: um número que representa o comprimento da nadadeira (em milímetros).
 - `body_mass_g`: um número inteiro que representa a massa do animal (em gramas).
 - `sex`: um fator que representa o sexo do animal (feminino ou masculino).
 - `year`: um número inteiro que denota o ano de estudo (2007, 2008 ou 2009).
@@ -309,7 +309,253 @@ tibble(
 
 
 
-## A Arte da Visualização de Dados: `ggplot2`
+## Visualização de Dados com `ggplot2`
+
+Se o `dplyr` é a gramatica da manipulação de dados, possuindo funções essenciais para esse trabalho, o `ggplot2` [@wickhamGgplot22016] é gramática dos gráficos, que permite construir gráficos por meio de camadas, oferecendo um sistema robusto e flexível para visualizar os dados disponíveis. Nesta seção, continuaremos utilizando os dados dos pinguins para explorar alguns *insights* visuais, desde gráficos mais simples até os mais elaborados.
+
+Todo gráfico no `ggplot2` é constituído por três camadas essenciais:
+
+1. Dados (`data`): O *dataframe* que contém as informações a serem plotadas. 
+2. Mapeamento Estéticos (`aes`): A função `aes()` (de *aesthetics*) descreve como as variáveis do nosso *dataframe* são mapeadas para as propriedades visuais do gráfico. As estéticas mais comuns são `x` e `y` (os eixos), mas também incluem `color` (cor), `shape` (forma), `size` (tamanho) e `alpha` (transparência/opacidade).
+3. Objetos geométricos (`geom`): Os `geoms` definem como os dados são representados visualmente. Por exemplo, `geom_point()` cria um gráfico de dispersão, `geom_bar()` cria um gráfico de barras, `geom_line()` cria um gráfico de linhas, e assim por diante.
+
+### Estatística descritiva
+
+Antes de explorar as relações gráficas, é útil enfatizar e entender alguns conceitos essenciais da Estatística Descritiva como os tipos de variáveis, normas para tabelas e as definições de frequências. 
+
+<!-- Antes de explorar as relações gráficas, é útil enfatizar e entender as diferenças entre os tipos de variáveis e suas distribuições individuais possíveis. Em geral, pode-se dizer que existem duas categorias de variáveis dentro da estatística: -->
+Em geral, pode-se dizer que existem duas categorias de variáveis dentro da estatística:
+
+1. **Variáveis Qualitativas**: Também chamadas por variáveis categóricas e como o próprio nome diz, expressam qualidade e indicam categoria ou classificação a qual o objeto pertence. Se existir uma ordem entre as possíveis categorias, a variável é dita **qualitativa ordinal**. Caso contrário, é dita ser **qualitativa nominal**.
+2. **Variáveis Quantitativas**: São variáveis que tomam valores numéricos e expressam quantidade. Podem ser especificadas por **Variáveis Discretas**, quando assumem valores dentro de um conjunto enumerável (quando é possível contá-las) ou por **Variáveis Continuas**, quando podem assumir infinitos valores de um intervalo não inumerável^[Tente contar os números do conjunto $A = \{1,2,3,4\}$ e, também, de $B = [1,4]$. Observe que no conjunto $A$ há 4 elementos, enquanto em $B$ há infinitos valores de 1 a 4.] (não é possível contar o número de valores dentro de um intervalo).
+
+Assim, para explorar e apresentar as informações contidas num conjunto de dados, precisamos resumir essas informações de forma que seja possível enxergá-las rapidamente e adquirir conhecimento sobre o assunto.
+
+O resumo pode ser feito por meio de tabelas, gráficos e cálculo de algumas quantidades representativas. O primeiro passo é identificar o tipo de cada variável para aplicarmos a técnica apropriada. 
+
+As normas gerais para construção de uma tabela envolvem:
+
+- Devem ser auto-explicativas.
+- Devem conter um título, que precisa ser simples e claro, indicando informações sobre os dados (do que, onde e quando foram coletados -- se forem relevantes).
+
+Além das normas gerais, existem duas convenções importantes a serem seguidas com relação ao título de tabelas e gráficos:
+
+- Em **tabelas** os títulos vem primeiro, em cima da tabela.
+- Em **gráficos** os títulos vem por último, embaixo do gráfico.
+
+Se necessário, notas e fontes vêm embaixo, em ambos os casos. Uma tabela começa e termina com um traço horizontal e traços na vertical devem ser evitados, conforme visto na @tbl-tabela-resumo1 por exemplo.
+
+Uma forma adequada para resumir informações sobre uma variável numa tabela é através da construção de uma **tabela de frequências**, que informa quais valores ou categorias a variável pode tomar, com suas respectivas frequências. Quando a variável é qualitativa, as frequências vão revelar se temos categorias mais comuns (típicas) e categorias raras ou se a distribuição é uniforme/homogênea. Já quando a variável é quantitativa, as frequências revelarão os valores típicos e/ou a distribuição dos valores é simétricas ou assimétrica. 
+
+Existem alguns tipos de frequência que podem ser utilizados para resumir as informações, dentre eles:
+
+- Frequência absoluta ou simplesmente frequência ($f$): é a contagem do número de vezes que um valor ou categoria aparece. 
+- Frequência relativa ($\text{fr} = f/n$): quando esse valor é multiplicado por $100$, informa a porcentagem do aparecimento de uma determinada categoria sobre o número total de contagem.
+- Frequência acumulada ($\text{fa}$): é a frequência acumulada até um valor específico.
+- Frequência acumulada relativa ($\text{far} = \text{fa}/n$): quando esse valor é multiplicado por $100$, informa a porcentagem acumulada do aparecimento de uma determinada categoria sobre o número total de contagem.
+
+A @tbl-freq-pin contém as informações sobre as frequências de cada espécie de pinguim existente no conjunto de dados *penguins*. As informações básicas que podem ser extraídas é que entre as espécies dentro do estudo sobre pinguins 44.2\% são *Adelie*, 36\% são *Gentoo* e 19.8\% são *Chinstrap*.
+
+```{r, echo=FALSE}
+#| tbl-cap: "Distribuição de frequências para as espécies de Pinguins."
+#| label: tbl-freq-pin
+#| tbl-pos: "H"
+
+penguins %>% 
+  count(species, name = "freq") %>% 
+  mutate(
+    freq.r = round(freq/sum(freq), 3),
+    porc = paste0(round(freq.r*100,3), "\\%")
+  ) %>% 
+  arrange(desc(freq)) %>% 
+  as_tibble() %>% 
+  bind_rows(
+    tibble(
+      species = "Total",
+      freq = sum(penguins %>% count(species) %>% select(n)),
+      freq.r = round(1, 3),
+      porc = "100\\%"
+    )
+  ) %>% 
+  kable(
+    col.names = c(
+      "Espécies",
+      "Frequência",
+      "Frequência absoluta",
+      "Porcentagem"
+      ),
+    booktabs = TRUE,
+    align = c("lccc"),
+    escape = FALSE,
+    format = "latex"
+  ) %>% 
+  kable_styling(
+    latex_options = c("striped")
+  ) %>% 
+  row_spec(3, extra_latex_after = "\\midrule")
+```
+
+Quando a variável é quantitativa e assume muitos valores distintos, para resumir e capturar o padrão da distribuição, esses valores devem ser agrupados em intervalos. A quantidade de intervalos é arbitrário, no entanto, não pode ser nem muito baixo e nem muito alto. O próximo passo é especificar os intervalos, contando quantos valores aparecem dentro de cada um deles. 
+
+Para exemplificar, utilizaremos a variável `body_mass_g` de nosso conjunto de dados sobre os pinguins. Em geral, segue-se os passos:
+
+1. Calcular a amplitude ($A$) dos dados, que é a diferença entre o maior e menor valor da variável. 
+```{r}
+penguins %>% 
+  summarise(
+    maior = max(body_mass_g, na.rm = TRUE),
+    menor = min(body_mass_g, na.rm = TRUE),
+    amplitude = max(body_mass_g, na.rm = TRUE) - min(body_mass_g, na.rm = TRUE))
+
+# Ou ainda
+A <- penguins %>% 
+  summarise(
+    amplitude = diff(range(body_mass_g, na.rm = TRUE))
+  )
+```
+2. Encontrar o comprimento aproximado de cada intervalo, dividindo $A$ pelo número de intervalos desejados. 
+```{r}
+A/6
+```
+
+A partir da @tbl-freq-abs-pin e pela coluna das frequências relativas, observa-se que a distribuição do peso é assimétrica. Em breve, isso será observado graficamente.
+```{r, echo=FALSE}
+#| tbl-cap: "Distribuição de frequências para a massa corporal (g) dos pinguins."
+#| label: tbl-freq-abs-pin
+#| tbl-pos: "H"
+
+penguins %>%
+  filter(!is.na(body_mass_g)) %>%
+  {
+    brks <- seq(2700, 6300, by = 600)
+    brks[length(brks)] <- brks[length(brks)] + 1e-8
+    labs <- sprintf("%d $\\vdash$ %d", 
+                    seq(2700, 6300 - 600, by = 600),
+                    seq(2700 + 600, 6300, by = 600))
+
+    cut(x = .$body_mass_g,
+        breaks = brks,
+        right = FALSE, include.lowest = TRUE,
+        labels = labs) %>% 
+      as_tibble_col(column_name = "Intervalo") %>% 
+      count(Intervalo, name = "freq", .drop = FALSE) %>% 
+      mutate(
+        fr = paste0(round(freq / sum(freq) * 100, 2), "\\%"),
+        far = paste0(round(cumsum(freq) / sum(freq) * 100, 2), "\\%")
+      ) %>% 
+      kable(
+        col.names = c("Massa corporal (g)", "Frequência", "f.r. (\\%)", "f.a.r. (\\%)"),
+        booktabs = TRUE,
+        align = c("lccc"),
+        escape = FALSE,
+        format = "latex"
+      ) %>% 
+      kable_styling(latex_options = "striped")
+  }
+```
+
+
+### Tipos de gráficos
+
+As distribuições de frequências podem ser representadas em gráficos, que facilitam a interpretação visual do comportamento dos dados. Os gráficos mais comuns, segundo o tipo de variável, são:
+
+- Barras ou colunas: apropriado para variáveis qualitativas e quantitativas discretas.
+- Setores: qualitativas nominais com poucas categorias.
+- Histograma: qualitativas contínuas.
+- Box-plot: quantitativas.
+- Diagrama de dispersão: relaciona duas quantitativas.
+- Gráfico de linhas: evolução de quantitativa ao longo do tempo ou espaço.
+
+Com esse conhecimento em mente podemos prosseguir para as construções dos gráficos utilizando o `ggplot2`
+
+#### Visualizando uma única variável
+
+Para visualizar a distribuição de uma variável contínua como a massa corporal, utiliza-se o histograma com a função `geom_histogram()`. Como já foi visto, a escolha do número de colunas é arbitrário e pode afetar significativamente a aparência e a interpretação do gráfico.
+```{r, warning=FALSE}
+#| fig-cap: "Distribuição da massa corporal (g) dos pinguins."
+#| fig-width: 6
+#| fig-height: 2.75
+
+penguins %>% 
+  ggplot(mapping = aes(x = body_mass_g))+
+    geom_histogram(color = "white", fill = "steelblue",
+                   breaks = seq(2700, 6300, by = 600), 
+                   closed = "left")+
+    scale_x_continuous(
+      breaks = seq(2700, 6300, by = 600),
+      labels = seq(2700, 6300, by = 600),
+      limits = c(2700, 6300)
+    )+
+    labs(
+      x = "Massa corporal (g)",
+      y = "Contagem"
+    )+
+    ggthemes::theme_clean()
+```
+Observe que a biblioteca `ggthemes` foi utilizada para melhorar o aspecto estético do gráfico, fornecendo temas adicionais. Portanto, é recomendável instalá-la e carregá-la no espaço de trabalho.
+```{r}
+# install.packages("ggthemes")
+library(ggthemes)
+```
+
+Para variáveis categóricas, como `species`, usamos o `geom_bar()` para criar um gráfico de barras que mostra a contagem de observações em cada categoria.
+```{r}
+#| fig-cap: "Distribuição de Pinguins por Espécie."
+#| fig-width: 6
+#| fig-height: 2.75
+
+penguins %>% 
+  ggplot(mapping = aes(x = species, fill = species))+
+    geom_bar()+
+    labs(
+      x = "Espécie",
+      y = "Número de Indivíduos"
+    )+
+    labs(
+        x = "Massa corporal (g)",
+        y = "Contagem",
+        fill = "Espécies"
+      )+
+    theme_clean()+
+    theme(legend.position = "bottom")
+```
+
+#### Relações entre variáveis
+
+O gráfico de dispersão é a ferramenta clássica para explorar relações entre duas variáveis numéricas. Investigaremos a relação existente entre o comprimento da nadadeira e a massa corporal. A hipótese é que pinguins com nadadeiras maiores também serão mais pesados, uma relação positiva e intuitiva que serve como um excelente parâmetro de partida.
+```{r, warning=FALSE}
+#| fig-cap: "Relação entre o tamanho da nadadeira (mm) e o peso corporal (g) dos pinguins."
+#| label: fig-dis-peso-nad
+
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g))+
+    geom_point()+
+    labs(
+      x = "Comprimento da Nadadeira (mm)",
+      y = "Peso corporal (g)"
+    )+
+  theme_clean()
+```
+\noindent A @fig-dis-peso-nad informa uma clara tendência positiva entre a nadadeira e o peso corporal dos pinguins. Mas será que esse tendência é a mesma para todas as espécies? Para responder essa pergunta, através da função `aes()`, é possível adicionar estéticas adicionais como `shape`, `color` ou `size` para distinguir as espécies no gráfico. O argumento a ser utilizado dependerá onde a imagem será utilizada. Por exemplo, em uma revista científica, que solicita gráficos em preto e branco, é aconselhável utilizar `shape` ou `size`. 
+```{r, warning=FALSE}
+#| fig-cap: "Relação entre o tamanho da nadadeira (mm) e o peso corporal (g) por espécie dos pinguins."
+#| label: fig-dis-esp
+
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species))+
+    geom_point()+
+    labs(
+      x = "Comprimento da Nadadeira (mm)",
+      y = "Peso corporal (g)",
+      color = "Espécies"
+    )+
+    theme_clean()+
+    theme(legend.position = "bottom")
+```
+\noindent A @fig-dis-esp revela detalhes mais pertinentes, mostrando que a relação entre massa corporal e comprimento da nadadeira mantêm-se positiva (nível de grupo).
+
+Para comparar a distribuição de uma variável numérica entre diferentes categorias, o boxplot^[Também chamado por gráfico de caixas.] (`geom_boxplot()`) é uma excelente ferramenta. Para isso, vamos comparar a distribuição da massa corporal entre as três espécies.
+
 
 
 

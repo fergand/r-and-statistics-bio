@@ -65,6 +65,10 @@ format:
   # Você pode adicionar outros formatos aqui, como HTML
   # html:
   #   theme: cosmo
+execute:
+  fig-width: 6
+  fig-height: 2.5
+  fig-align: center
 
 # Configurações do editor (opcional, para RStudio/VS Code)
 editor: visual
