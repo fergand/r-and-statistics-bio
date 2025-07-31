@@ -1,0 +1,23 @@
+# Exercícios
+
+```{=latex}
+\begin{questao}[Estudo de caso]
+Este estudo de caso é o climax do capítulo. Ele demonstra como a manipulação de dados e a visualização de dados não é apenas para apresentar resultados, mas uma ferramenta de investigação que pode relevar verdades contraintuitívas e protejer de conclusões precipitadas. O Paradoxo de Simpson ocorre quando uma tendência aparece em vários grupos de dados, mas desaparece ou se inverte quando esses grupos são combinados.
+
+Um gráfico para comunicação precisa ser claro, informativo e esteticamente agradável. O `ggplot2` oferece total controle sobre cada elemento. 
+
+\begin{itemize}
+  \item \texttt{labs()}: Use para adicionar títulos, subtítulos, legendas e para renomear os eixos de forma clara e concisa. 
+  \item \texttt{theme()}: Altera a aparência geral do gráfico. 
+  \item \texttt{scale\_*}: Controla como as estéticas são mapeadas. Por exemplos \texttt{scale\_*} permite a escolha de cores personalizadas.
+\end{itemize}
+
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Faça o plot do comprimento do bico \textit{versus} a produndidade do bico para todos os pinguins e adicione uma linha de tendência com \texttt{geom\_smooth(method = 'lm')}.
+  \item Refaça o gráfico anterior, mas com o mapeamento com a variávle \texttt{species} à estética \texttt{color}. O \texttt{ggplot2} é inteligente o suficiente para, ao adicionarmos \texttt{geom\_smooth()}, criar uma linha de tendência separada por cor (ou seja, para cada espécie)
+\end{enumerate}
+\end{questao}
+```
+

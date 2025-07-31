@@ -20,6 +20,7 @@ book:
       chapters:
         - 01-intro-r.qmd
         - 02-tidyverse.qmd
+        - I-exercicios.qmd
     - part: "Fundamentos do Pensamento Estatístico"
       chapters:
         - 03-probabilidade.qmd
@@ -61,7 +62,6 @@ format:
     # Aqui é onde você adiciona pacotes e comandos LaTeX
     include-in-header: header.tex
         
-        
   # Você pode adicionar outros formatos aqui, como HTML
   # html:
   #   theme: cosmo
@@ -69,6 +69,7 @@ execute:
   fig-width: 6
   fig-height: 2.5
   fig-align: center
+  fig-pos: "H"
 
 # Configurações do editor (opcional, para RStudio/VS Code)
 editor: visual

@@ -6,11 +6,19 @@
 \usepackage{geometry}
 \geometry{margin=1in}
 \usepackage{float}
+\usepackage[shortlabels]{enumitem}
 
 % -------------------------------------------------
 % 2. Matemática e teoremas
 % -------------------------------------------------
 \usepackage{amsmath, amsthm, amssymb}
+
+% -------------------------------------------------
+% 2.1. Ambiente Questão
+% -------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{questao}{Questão}[section]
+\renewcommand{\thequestao}{\arabic{questao}}
 
 % -------------------------------------------------
 % 3. Fonte, espaçamento e microtipografia

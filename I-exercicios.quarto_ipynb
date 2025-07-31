@@ -1,0 +1,32 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Exercícios\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "```{latex}\n",
+        "\\begin{question}\n",
+        "Um gráfico para ser \n",
+        "\n",
+        "\\end{question}\n",
+        "```"
+      ],
+      "id": "04bb6176"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
