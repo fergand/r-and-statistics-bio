@@ -1,10 +1,89 @@
 # Exercícios
 
 ```{=latex}
+\begin{questao}
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Conte quantos registros existe de pinguins \textit{Chinstrap} na ilha de \textit{Dream}.
+  \item Filtre apenas os pinguins com \texttt{body\_mass\_g > 5000} e exiba as 10 primeiras linhas.
+\end{enumerate}
+\end{questao}
+```
+
+```{=latex}
+\begin{questao}
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Ordene todo o conjunto de dados em ordem decrescente de \texttt{flipper\_length\_mm}.
+  \item Em seguida, dentro de cada espécie, mostre os 3 pinguins mais leves.
+\end{enumerate}
+\end{questao}
+```
+
+```{=latex}
+\begin{questao}
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Crie a coluna \texttt{mass\_class} que seja "Leve" se \texttt{body\_mass\_g < 3500}, "media" se \texttt{body\_mass\_g} está entre 3500 e 4500 e "Pesada" se caso contrário.
+  \item Recodifique \texttt{sex} para "Fêmea" e "Macho".
+\end{enumerate}
+\end{questao}
+```
+
+```{=latex}
+\begin{questao}
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Calcule, por \texttt{species}, a média e o desvio-padrão de \texttt{bill\_length\_mm}.
+  \item Depois, agrupe por \texttt{species} e \texttt{sex}, calculando a média, desvio-padrão e contagem de \texttt{body\_mass\_g}, armazenando em um tibble \texttt{resumo\_ps}.
+\end{enumerate}
+\end{questao}
+```
+
+```{=latex}
+\begin{questao}
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Crie dois histogramas de \texttt{body\_mass\_g} lado a lado (facetas): um para \textit{Adelia} e outro para \textit{Gentoo}. Use \texttt{facet\_wrap( \~{} species)}.
+  \item Faça um boxplot de contagem por \texttt{island}, preenchido por \texttt{species}, com barras lado a lado (\texttt{position = "dodge"}). Interprete qual é a ilha tem maior diversidade.
+\end{enumerate}
+\end{questao}
+```
+
+```{=latex}
+\begin{questao}
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Plote a distribuição (\texttt{geom\_histogram()}) de \texttt{body\_mass\_g} facetada em grade com \texttt{facet\_grid(island \~{} sex)}. O que você observa sobre a diferença de massa entre machos e fêmeas?
+  \item No histograma de \texttt{body\_mass\_g}, adicione uma linha vertical (\texttt{geom\_line()}) na média global e use \texttt{annotate("text", ...)} para escrever seu valor médio no gráfico.
+\end{enumerate}
+\end{questao}
+```
+
+
+```{=latex}
+\begin{questao}
+Faça o que se pede:
+
+\begin{enumerate}[(a)]
+  \item Conte quantos registros existe de pinguins \textit{Chinstrap} na ilha de \textit{Dream}.
+  \item Filtre apenas os pinguins com \texttt{body\_mass\_g > 5000} e exiba as 10 primeiras linhas.
+\end{enumerate}
+\end{questao}
+```
+
+
+```{=latex}
 \begin{questao}[Estudo de caso]
 Este estudo de caso é o climax do capítulo. Ele demonstra como a manipulação de dados e a visualização de dados não é apenas para apresentar resultados, mas uma ferramenta de investigação que pode relevar verdades contraintuitívas e protejer de conclusões precipitadas. O Paradoxo de Simpson ocorre quando uma tendência aparece em vários grupos de dados, mas desaparece ou se inverte quando esses grupos são combinados.
 
-Um gráfico para comunicação precisa ser claro, informativo e esteticamente agradável. O `ggplot2` oferece total controle sobre cada elemento. 
+Um gráfico para comunicação precisa ser claro, informativo e esteticamente agradável. O \texttt{ggplot2} oferece total controle sobre cada elemento. 
 
 \begin{itemize}
   \item \texttt{labs()}: Use para adicionar títulos, subtítulos, legendas e para renomear os eixos de forma clara e concisa. 
