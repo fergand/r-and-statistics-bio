@@ -12,13 +12,42 @@
 % 2. Matemática e teoremas
 % -------------------------------------------------
 \usepackage{amsmath, amsthm, amssymb}
+\usepackage[framemethod=tikz]{mdframed}
 
 % -------------------------------------------------
-% 2.1. Ambiente Questão
+% 2.1. Desenhos
+% -------------------------------------------------
+
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+  \pgfplotsset{compat=1.17}
+  \usepgfplotslibrary{statistics}
+  \usepgfplotslibrary{colorbrewer}
+\usepackage{tikz}
+  \usetikzlibrary{intersections}
+  \usetikzlibrary{patterns}
+  \usetikzlibrary{arrows,fit,shapes.geometric}
+  \usetikzlibrary{pgfplots.statistics, pgfplots.colorbrewer}
+\usepackage{tkz-euclide}
+
+% -------------------------------------------------
+% 2.2. Ambientes
 % -------------------------------------------------
 \theoremstyle{definition}
 \newtheorem{questao}{Questão}[section]
 \renewcommand{\thequestao}{\arabic{questao}}
+\newtheorem*{solucao}{Solução}
+\newtheorem*{exemplo}{Exemplo}
+\theoremstyle{exemplo}
+\newmdtheoremenv[
+  hidealllines=true,
+  leftline=true,
+  linewidth=3pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=0pt,
+  linecolor=black!10,
+]{exemple}{Exemplo}
 
 % -------------------------------------------------
 % 3. Fonte, espaçamento e microtipografia

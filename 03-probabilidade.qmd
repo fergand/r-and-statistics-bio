@@ -1,3 +1,109 @@
 # Princípios de Probabilidade
 
-texto teste $f(x) = ax^2$.
+Para um biólogo, a incerteza não é uma falha de medição, mas uma característica fundamental dos sistemas vivos. A variabilidade genética entre indivíduos, as flutuações ambientais e o acaso inerente a processos como dispersão de sementes ou encontros entre predados e presa fazem da biologia uma ciência da variação. Além disso, raramente é possível estudar todos os indivíduos de uma população; em vez disso, trabalha-se com amostras, o que introduz outra camada de incerteza. A teoria da probabilidade é a linguagem matemática desenvolvida para quantificar e modelar essa incerteza. Seu objetivo não é prever o resultado de um único evento (se este ovo vai eclodir ou não), mas descrever a tendência e a variabilidade de muitos eventos (qual a proporção de ovos que se espera que eclodam em uma população). Dominar seus conceitos é o primeiro passo para realizar inferências estatísticas robustas sobre o mundo natural.
+
+Por isso, a biologia é conhecida, também, como a ciência da variabilidade. Métricas como o peso de um pássaro, o número de ovos em um ninho, o tempo de forrageio são medidas que variam naturalmente entre indivíduos, populações e ao longo do tempo. Quando coleta-se dados em estudo de campo ou em laboratórios, é observado apenas uma pequena amostra dessa grande variabilidade, permitindo surgir perguntas como "Como posso usar minha amostra para dizer algo significativo sobre a população inteira?" e "Como separo um efeito biológico real do mero acaso?".
+
+É a partir desses questionamentos que os fundamentos do pensamento estatístico entram em cena. Contudo, para chegar nessa etapa, é necessário conceitos fundamentais da teoria da probabilidade. Para calcular as probabilidades associadas a eles, se faz necessário algumas definições formais.
+
+## Conceitos Fundamentais
+
+A teoria da probabilidade é a espinha dorsal da inferência estatística [@andradeEstatisticaParaCiencias2017]. É também o ramo que permite quantificar a chance de ocorrência de um evento sujeito à aleatoriedade. Fenômenos cujos resultados não podem ser previstos com certeza absoluta, como o tempo da germinação de uma semente, são chamados de **fenômenos aleatórios**.
+
+O conceito chave, que fundamenta o restante da teoria deste capítulo é o de **Probabilidade**, que, qualitativamente definida, é uma medida de chance de um evento, que está sujeito à aleatoriedade, ocorrer.
+
+O conceito de **Ensaio aleatório** é qualquer ação ou experimento cujo resultado não pode ser previsto com certeza, embora conheçamos os resultados possíveis e um exemplo é a realização de um cruzamento genético com a observação do fenótipo do descendente. Essa definição é essencial na definição rigorosa de probabilidade, pois permite reconhecermos o conjunto de todos os resultados possíveis do experimento, com isso, definimos o significado de **Espaço Amostral** ($\Omega$). Assim, no cruzamento de indivíduos com genótipos $\text{Aa}\times \text{Aa}$, o espaço amostral para os genótipos descendentes é $\Omega = \{\text{AA}, \text{Aa}, \text{aa}\}$. Por outro lado, um **evento** é qualquer subconjunto do espaço amostral, considerando o mesmo exemplo do cruzamento de genótipos, poderíamos dizer que $A = \{\text{AA}, \text{aa}\}$ é um subconjunto de $\Omega$, ou seja, um evento no sentido de "ser homozigoto recessivo".
+
+É possível observar que a teoria de probabilidade está intimamente ligado com a teoria dos conjuntos, então é importante destacar algumas operações importantes, tais como:
+
+- União ($A \cup B$): Representa a ocorrência de pelo menos um dos eventos ($A$ ou $B$ ou amos);
+- Intersecção ($A \cap B$): Representa a ocorrência simultânea de ambos os eventos ($A$ e $B$);
+- Complementar ($\hat{A}$): Representa a não ocorrência do evento $A$.
+
+Dois eventos são chamados de **mutuamente exclusivos** ou **disjuntos** se eles não podem ocorrer ao mesmo tempo, ou seja, sua intersecção é o conjunto vazio ($A \cap B = \emptyset$). Por exemplo, no lançamento de um dado, os eventos "sair um número par" e "sair um número ímpar" são mutuamente exclusivos.
+
+### Axiomas e Propriedades da Probabilidade
+
+Um axioma, dentro da matemática, é uma regra que fundamenta uma teoria e dentro da teoria de Probabilidade, há alguns axiomas importantes para 
+
+Na matemática, um axioma é um regra aceita como ponto de partida para desenvolver uma teoria. Na teoria das Probabilidades não é diferente, existem axiomas fundamentais que funcionam como "regras do jogo", servindo de base para a construção de todos os conceitos e resultados da área. Esses axiomas foram propostos por @kolmogorovFoundationsTheoryProbability1950 e podem ser resumidos, considerando $\mathbb{P}(A)$ a probabilidade de um evento $A$ ocorrer, da seguinte forma:
+
+1. **Não negatividade**: Para qualquer evento $A$, sua probabilidade é sempre um número maior ou igual a zero, isto é, $\mathbb{P}(A) \geq 0$.
+2. **Normalização**: O evento certo (ou seja, a quele que sempre acontece) tem probabilidade igual a 1, isto é, $\mathbb{P}(\Omega) = 1$, onde $\Omega$ é o espaço amostral.
+3. **Aditividade**: Se dois eventos $A$ e $B$ são mutuamente exclusivos, então a probabilidade de ocorrer $A$ ou $B$ é a soma das probabilidades individuais, isto é, $\mathbb{P}(A\cup B) = \mathbb{P}(A) + \mathbb{P}(B)$.
+
+A partir desses axiomas, derivamos a **Regra da Adição** para quaisquer dois eventos (não necessariamente disjuntos):
+  $$\mathbb{P}(A\cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B).$$
+Também decorre que a probabilidade do evento complementar é 
+  $$\mathbb{P}(\bar{A}) = 1 - \mathbb{P}(A).$$
+
+Com isso, a probabilidade, em seu conceito mais formal, é "uma função $\mathbb{P}(\cdot)$ que atribui valores numéricos aos eventos do espaço amostral ($\Omega$), satisfazendo os axiomas de Kolmogorov [@magalhaesProbabilidadeVariaveisAleatorias2006] e adicionando o conhecimento ou a partir de suposições a respeito de um ensaio aleatório, é possível calcular ou atribuir valores às probabilidades dos eventos. Quando todos os eventos elementares são equiprováveis, temos que:
+  $$\mathbb{P}(A) = \frac{\text{número de casos favoráveis ao evento } A}{\text{número de casos possíveis}}.$$
+Ainda, é importante tomar cuidado quando os casos não são equiprováveis.
+
+### Probabilidade Condicional e Independência
+
+Muitas vezes, a probabilidade de um evento $A$ é reavaliada quando sabemos que um outro evento $B$ já ocorreu. Então, essa nova probabilidade é chamada por **Probabilidade Condicional** e é calculada por:
+  $$\mathbb{P}(A\mid B) = \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.$$
+Lê-se "probabilidade de $A$, dado que $B$ ocorreu". A ocorrência de $B$ restringe o espaço amostral ao conjunto $B$. Por fim, dizemos que dois eventos $A$ e $B$ são ditos **independentes** se a ocorrência de um não altera a probabilidade do outro. Matematicamente, isso pode ser escrito por $\mathbb{P}(A\mid B) = \mathbb{P}(A)$$. A grande consequência disso é a simplificação da Regra do Produto:
+
+- Se $A$ e $B$ são independentes:
+  $$\mathbb{P}(A\cap B) = \mathbb{P}(A) \times \mathbb{P}(B).$$
+- Se $A$ e $B$ são dependentes:
+  $$\mathbb{P}(A\cap B) = \mathbb{P}(A\mid B) \times \mathbb{P}(B).$$
+É importante não confundir eventos independentes com eventos mutuamente exclusivos. Eventos mutuamente exclusivos são, por definição, dependentes, visto que a ocorrência de um impede a ocorrência do outro.
+
+O **Teorema de Bayes** é uma das consequências mais importantes da definição de probabilidade condicional, permitindo calcular a probabilidade de um evento $A$ dado que outro evento $B$ ocorreu, relacionando-a à probabilidade de $B$ dado $A$. Matematicamente, tem-se:
+  $$\mathbb{P}(A\mid B) = \frac{\mathbb{P}(B \mid A)\mathbb{P}(A)}{\mathbb{P}(B)}.$$
+De forma intuitiva, esse teorema nos mostra como atualizar a probabilidade de um evento quando novas informação são obtidas. Ainda, um caso prático muito comum na área da saúde é "se $A$ representa o evento 'um paciente tem uma doença' e $B$ representa o evento 'o exame do paciente deu positivo", então o Teorema de Bayes permite calcular a probabilidade do paciente realmente estar doente dado que o exame foi positivo.
+
+A utilidade desse teorema se torna válido, visto que exames diagnósticos não são perfeitos, pois podem apresentar falsos positivos (indicando a doença quando ela não existe) e falsos negativos (não indica doença, quando ela está presente). Portanto, o Teorema de Bayes ajuda a levar em conta essas imperfeições, fornecendo uma visão mais realista sobre o resultado.
+
+
+## Variáveis Aleatórias e Modelos Probabilísticos
+
+Em Estatística Descritiva, foi definido os tipos de variáveis e formas de resumi-las por distribuições de frequências (tabelas e gráficos) e medidas resumo. Isso foi realizado com base em dados conquistados de amostras ou experimentos. Foram estudos empíricos, isto é, com base nas características dos dados.
+
+No entanto, amostras ou experimentos podem ser vistos como ensaios aleatórios, cada um com seu espaço amostral. Os resultados possíveis se manifestam ou não de acordo com suas probabilidades e seus parâmetros. Se as probabilidades e os parâmetros envolvidos fossem conhecidos, o comportamento de uma variável aleatória seria conhecido e não seriam necessários dados nos estudos.
+
+Na realidade, para os problemas relevantes, esses aspectos não são conhecidas, mas caso fossem conhecidos um pouco do comportamento verdadeiro dessas características e em conjunto com o conhecimento empírico, auxiliaria nas descobertas do estudo. Por essa razão, nesta seção, será estudado alguns comportamentos teóricos de variáveis aleatórias denominado por distribuições de probabilidades ou modelos de probabilidades, em princípio, efetuando algumas suposições prévias.
+
+### Variáveis Aleaórias
+
+Para aplicar ferramentas matemáticas a fenômenos biológicos, precisamos traduzir as observações em números. Uma **variável aleatória** (v.a.) é formalmente uma função que atribui um valor numérico a cada resultado possível de um experimento ou observação. @magalhaesProbabilidadeVariaveisAleatorias2006, matematicamente, define a variável aleatória como sendo $X\colon \Omega \to \mathbb{R}$. Portanto, é a ponte entre o fenômeno observado e o dado analisável.
+
+Uma vez definida a variável aleatória como a ligação entre o fenômeno observado e os valores numéricos que foram analisados, o próximo passo é compreender como esses valores se distribuem. Em outras palavras, precisa-se de uma forma de descrever a probabilidade associada a cada possível valor que a variável pode assumir. Formalmente, como apresentado por @magalhaesProbabilidadeVariaveisAleatorias2006, a função de distribuição de uma variável aleatória $X$ é definida por
+  $$F_X(x) = \mathbb{P}(X \leq x),$$
+com $\mathbb{P}(X \leq x)$ assumindo valores entre $0$ e $1$, ou seja, para cada valor de $x$, $F_X(x)$ indica a probabilidade de que variável aleatória $X$ assuma um valor menor ou igual a $X$.
+
+De maneira intuitiva, podemos pensar nessa função como um mapa que organiza todas as possíveis observações do fenômeno biológico em probabilidades acumuladas. Por exemplo, se $X$ representa o comprimento do bico de uma espécie de pássaro, $F_X(x)$ indica a fração de indivíduos cujo bico mede até $x$ mm.
+
+Essa formalização nos permite, nas próximas subseções, diferenciar claramente variáveis aleatórias discretas, cujos valores podem ser contados, de variáveis contínuas, cujos valores variam ao longo de um intervalo contínuo, o que é essencial para a análise dados biológicos.
+
+:::{.exemplo}
+Semear uma semente, com potencial germinativo $p$ e observar se ela germina ou não. O espaço amostral é $\Omega = \{G, \bar{G}\}$, sendo $G$ a representação para ocorrência da germinação. A probabilidade associada é $\mathbb{P}(G) = p$, com $0<p<1$. Seja $Y$ a variável que assume o valor $1$ se $G$ (sucesso) e o valor $0$ se $\bar{G}$ (fracasso). Assim, $Y$ também tem seu espaço amostral que é $\Omega_Y = \{0,1\}$.
+
+![Espaço amostral do experimento e da variável aleatória binária $Y$.](Imagens/figura1.pdf){fig-align="center"}
+
+Suponha $p = 0.4$, então 
+  $$\mathbb{P}(Y = 0) = (1-p) = 0.6\quad \text{e}\quad \mathbb{P}(Y = 1) = p = 0.4.$$
+Esses dois valores formam a distribuição de probabilidades de $Y$, que é uma variável discreta binária, pois pode assumir um de dois valores. 
+
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

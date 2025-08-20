@@ -21,7 +21,7 @@ book:
         - 01-intro-r.qmd
         - 02-tidyverse.qmd
         - I-exercicios.qmd
-    - part: "Fundamentos do Pensamento Estatístico"
+    - part: parte2-probest.qmd
       chapters:
         - 03-probabilidade.qmd
         - 04-inferencia.qmd
@@ -61,6 +61,8 @@ format:
     
     # Aqui é onde você adiciona pacotes e comandos LaTeX
     include-in-header: header.tex
+    filters: 
+      - ambientes-latex.lua
         
   # Você pode adicionar outros formatos aqui, como HTML
   # html:

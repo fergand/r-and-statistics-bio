@@ -1,0 +1,7 @@
+# Fundamentos do Pensamento Estatístico
+
+Após dominar as ferramentas para manipular e visualizar dados na Parte I, agora o foco residirá na teoria que fundamenta a análise estatística. Essa segunda parte da apostila é dedicada aos pilares conceituais da Estatística, garantindo que sua aplicação prática nos capítulos posteriores seja não apenas correta, mas também bem compreendida.
+
+A abordagem será focada em três áreas essenciais: Princípios de Probabilidade, entendendo como os conceitos como variáveis aleatórias e distribuições de probabilidade formam a base para modelar a incerteza inerente a qualquer dado biológico; Inferência Estatística, onde será desvendado o processo de tirar conclusões sobre uma amostra, detalhando o funcionamento de testes de hipóteses e intervalos de confiança; Delineamento de Experimentos, um passo fundamental que precede qualquer análise, visto que com um bom planejamento na coleta de dados é um fator determinante para a validade e a força das conclusões que podemos extrair. 
+
+Ao final, espera-se que o leitor tenha uma compreensão clara da teoria, facilitando o entendimento e a aplicação crítica dos modelos estatísticos que serão construídos adiante.
