@@ -324,6 +324,7 @@ Desta forma, dizemos que uma variável aleatória $X$ segue a distribuição de 
   $$p(k) = \mathbb{P}(X = k) = \frac{e^{\lambda}\lambda^k}{k!}, \quad k = 0,1,2,\dots$$
 Neste modelo, o parâmetro $\lambda$ representa tanto a média, quanto a variância, isto é:
   $$\mathbb{E}(X) = \lambda, \quad \mathbb{V}(X) = \lambda.$$
+Note que, na distribuição de Poisson, a esperança e a variância são iguais. Portanto, é uma propriedade característica e restritiva. 
 
 :::{.exemplo}
 Suponha que, em média, 2 aves pousam em uma árvore a cada hora em determinada região de estudo. O número de aves que pousam em uma variável pode ser modelado a partir de uma variável aleatória $X\sim \text{Po}(\lambda = 2)$. Assim, o espaço amostral de $X$ é $\Omega_X = \{0,1,2,\dots\}$ com 
@@ -444,23 +445,109 @@ As consequências imediatas desta definição são:
 
 A última propriedade informa que, se a variável é contínua, a probabilidade dela assumir um valor particular qualquer é nula, visto que ponto não possui comprimento, explicitando o conceito que para variáveis contínuas, a probabilidade positiva existe apenas para valores dentro de intervalos.
 
-Ainda nesta seção, serão abordados dois modelos fundamentais para as variáveis contínuas -- **Exponencial** e **Normal** -- que são imprescindíveis para a base teórica de Modelos Lineares, que serão vistos futuramente.
-
-### Distribuição Uniforme
+Ainda, nesta seção, serão destacadas duas distribuições contínuas fundamentais -- **Exponencial** e **Normal**. A primeira tem papel essencial por ser a forma mais simples da chamada *família exponencial*, conceito que servirá de base para compreender modelos mais gerais. Já a Normal, é uma das distribuições mais utilizadas e conhecidas dentro da estatística, com aplicações em inúmeras áreas, além de estar presente em diversas premissas que dão suporte aos Modelos Lineares. O estudo dessas distribuições, portanto, é um passo importante para compreender fenômenos contínuos de modo a preparar o caminho para modelos mais avançados que serão vistos a diante.
 
 ### Distribuição Exponencial
 
+Como visto anteriormente, a distribuição de Poisson é utilizada para modelar o número de eventos que ocorrem em um intervalo de tempo ou espaço. A distribuição Exponencial^[A distribuição Exponencial é um modelo probabilístico paramétrico amplamente utilizado em estudo de Analise de Sobrevivência, a partir de dados censurados, envolvendo áreas diversas áreas de engenharia, estudos clínicos e agronomia [@colosimoAnaliseSobrevivenciaAplicada2021].] surge quando o interesse do pesquisados está no tempo até a ocorrência do próximo evento. 
+
+Em outras palavras, se sabermos que certo tipo de evento ocorre em média a uma taxa constante, é possível utilizar a distribuição Exponencial para descrever a variação no tempo de espera até esse evento. Exemplos incluem:
+
+1. O tempo até que uma semente germine em condições controladas;
+2. O tempo até o surgimento de uma mutação em uma população de bactérias;
+3. O tempo de vida de certos organismos unicelulares;
+4. O intervalo de tempo entre o pouco de aves em um ponto de observação.
+
+Se a variável aleatória contínua $X$ representa o tempo de espera até o próximo evento, diz-se, então, que $X$ segue uma distribuição Exponencial com parâmetro $\lambda > 0$, denotado por $X\sim \text{Exp}(\lambda)$, em que $\lambda$ representa a taxa média de ocorrência dos eventos. A função densidade de probabilidade (@fig-exp2) é dada por:
+  $$f_X(x) = \lambda e^{-\lambda x}, \quad x>0.$$
+É possível demonstrar que a esperança e a variância, respectivamente, são dadas por:
+  $$\mathbb{E}(X) = \frac{1}{\lambda}, \quad \mathbb{V}(X) = \frac{1}{\lambda^2}.$$
+A caracterização da esperança ser o inverso da taxa média significa, em termos práticos, que se esperarmos $\mathbb{E}(X) = 2$ horas até a germinação de uma semente, então a taxa de germinação é $\lambda = \frac{1}{2} = 0.5$ horas (30 minutos). Neste sentido, a distribuição Exponencial, portanto, é um modelo simples, mas útil para estudar tempos de espera em processos biológicos e ecológicos.
+
+```{r}
+#| echo: false
+#| fig-cap: "Função densidade de probabilidade da Exponencial ($\\lambda = 2$)."
+#| label: fig-exp2
+
+
+tibble(
+  x = seq(0, 5, length.out = 500),
+  y = dexp(x, rate = 2)
+) %>% 
+  ggplot(aes(x = x, y = y))+
+  geom_line(linewidth = 0.8)+
+  labs(
+    x = "x",
+    y = "f(x)"
+  )+
+  theme_clean()
+```
+
+
 ### Distribuição Normal
 
+A distribuição normal é, sem dúvida, uma das mais importantes em Estatística, sendo a mais popular, e também conhecida por curva de Gauss^[Gauss em seus trabalhos sobre erros de observações astronômicas, por volta de 1810, introduziu o nome de distribuição *gaussiana* para este modelo [@morettinEstatisticaBasica2010].], aparecendo em diversos contexto, seja na distribuição de característica biológicas, em fenômenos ambientais, ou ainda em processos de erro de medida em experimentos científicos.
+
+Outro fator de sua popularidade esta em sua capacidade de aproximar os histogramas de muitas variáveis observadas na ciência e por descrever o comportamento de médias amostrais.
+
+Dizemos que uma variável aleatória $X$ tem distribuição normal com parâmetros $\mu$ e $\sigma^2$, $-\infty < \mu < \infty$ e $\sigma^2 > 0$, se sua densidade é dada por:
+  $$f_X(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2\sigma^2}(x - \mu)^2}, \quad -\infty < x < \infty.$$
+Na fórmula, $x$ representa os valores possíveis de $X$, $\mu = \mu_X$ é a média teórica (valor esperado) e $\sigma = \sigma_X$ é o desvio padrão. Devido a esses fatores, $f_X(x) \geq 0$ e $\int f_X(x)\mathrm{d}x = 1$. O gráfico desta curva possui um formato de sino (@fig-gauss) e por esse motivo, um outro nome alternativo para a distribuição normal [@gotelli2004primer].
+
+```{r}
+#| fig-cap: "Função densidade de probabilidade Normal"
+#| label: fig-gauss
+#| echo: false
+
+mu <- 0
+sigma <- 1
+
+tibble(
+  x = seq(mu-4*sigma, mu+4*sigma, length.out = 500),
+  y = dnorm(x, mean = mu, sd = sigma)
+) %>% 
+  ggplot(aes(x = x, y = y))+
+  geom_line(linewidth = 0.8)+
+  geom_point(aes(x = mu, y = 0), color = "blue", size = 2)+
+  scale_x_continuous(
+    breaks = c(mu-sigma, mu, mu+sigma),
+    labels = expression(mu - sigma, mu, mu + sigma)
+  )+
+  labs(
+    x = "x",
+    y = "f(x)"
+  )+
+  theme_clean()
+```
 
 
+```{r}
+#| echo: false
+#| fig-cap: "Densidades de probabilidade Normal"
+#| label: fig-gauss2
 
-
-
-
-
-
-
+tibble(
+  media = c(15, 25, 40, 55, 70),
+  sd = c(5, 10, 20, 15, 17.5),
+  cor = c("black", "red", "green", "blue", "magenta")
+) %>% 
+  rowwise() %>% 
+  mutate(
+    x = list(seq(0, 100, length.out = 500)),
+    y = list(dnorm(x, mean = media, sd = sd))
+  ) %>% 
+  unnest() %>% 
+  ggplot(aes(x = x, y = y, color = cor))+
+  geom_line(linewidth = 0.8)+
+  geom_point(aes(x = media, y = 0, color = cor), size = 2)+
+  scale_color_identity()+
+  labs(
+    x = "x",
+    y = "f(x)"
+  )+
+  theme_clean()+
+  theme(legend.position = "none")
+```
 
 
 
