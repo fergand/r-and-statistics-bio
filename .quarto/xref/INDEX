@@ -4,5 +4,44 @@
   },
   "06-lm.qmd": {
     "06-lm.html": "2b07c964"
+  },
+  "index.qmd": {
+    "index.html": "12443e63"
+  },
+  "parte1-intro.qmd": {
+    "parte1-intro.html": "659cd0b2"
+  },
+  "02-tidyverse.qmd": {
+    "02-tidyverse.html": "921a50a0"
+  },
+  "I-exercicios.qmd": {
+    "I-exercicios.html": "e9c6165a"
+  },
+  "parte2-probest.qmd": {
+    "parte2-probest.html": "c90bcee9"
+  },
+  "03-probabilidade.qmd": {
+    "03-probabilidade.html": "928889e6"
+  },
+  "04-inferencia.qmd": {
+    "04-inferencia.html": "bf05334a"
+  },
+  "05-delineamento.qmd": {
+    "05-delineamento.html": "a9bee83f"
+  },
+  "07-lmm.qmd": {
+    "07-lmm.html": "1a648fa3"
+  },
+  "08-lme4.qmd": {
+    "08-lme4.html": "e854bac6"
+  },
+  "09-glmm.qmd": {
+    "09-glmm.html": "b0b7130d"
+  },
+  "10-interpretacao.qmd": {
+    "10-interpretacao.html": "162a7bdb"
+  },
+  "references.qmd": {
+    "references.html": "488f6bde"
   }
 }

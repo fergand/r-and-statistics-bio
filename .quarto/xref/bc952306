@@ -1,1 +1,1 @@
-{"entries":[],"headings":[],"options":{"chapters":true}}
+{"entries":[{"caption":"Operadores matemáticos básicos.","key":"tbl-op-mat","order":{"number":1,"section":[1,6,1,0,0,0,0]}}],"headings":["o-que-são-r-e-rstudio","instalação-passo-a-passo","navegando-na-interface-do-rstudio","o-conceito-de-pacotes","instalando-e-carregando-pacotes-essenciais","diretório-de-trabalho-e-projetos-rstudio","r-básico","operadores-matemáticos","objetos-e-funções","importanto-dados","vetores-e-data-frames","fatores","valores-especiais","pedindo-ajuda"],"options":{"chapters":true}}

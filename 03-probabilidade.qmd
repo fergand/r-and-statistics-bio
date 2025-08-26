@@ -1,10 +1,22 @@
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggthemes)
+library(kableExtra)
+library(latex2exp)
+```
+
+
 # Princípios de Probabilidade
 
-Para um biólogo, a incerteza não é uma falha de medição, mas uma característica fundamental dos sistemas vivos. A variabilidade genética entre indivíduos, as flutuações ambientais e o acaso inerente a processos como dispersão de sementes ou encontros entre predados e presa fazem da biologia uma ciência da variação. Além disso, raramente é possível estudar todos os indivíduos de uma população; em vez disso, trabalha-se com amostras, o que introduz outra camada de incerteza. A teoria da probabilidade é a linguagem matemática desenvolvida para quantificar e modelar essa incerteza. Seu objetivo não é prever o resultado de um único evento (se este ovo vai eclodir ou não), mas descrever a tendência e a variabilidade de muitos eventos (qual a proporção de ovos que se espera que eclodam em uma população). Dominar seus conceitos é o primeiro passo para realizar inferências estatísticas robustas sobre o mundo natural.
+Para um biólogo, a incerteza não é uma falha de medição, mas uma característica fundamental dos sistemas vivos. A variabilidade genética entre indivíduos, as flutuações ambientais e o acaso inerente a processos como dispersão de sementes ou encontros entre predados e presa fazem da biologia uma ciência da variação. Além disso, raramente é possível estudar todos os indivíduos de uma população; em vez disso, trabalha-se com amostras, o que introduz outra camada de incerteza. A teoria da probabilidade é a linguagem matemática desenvolvida para quantificar e modelar essa incerteza. Seu objetivo não é prever o resultado de um único evento (por exemplo, se um ovo irá eclodir ou não), mas descrever a tendência e a variabilidade de muitos eventos (como a proporção esperadas de ovos que eclodam em uma população). 
 
-Por isso, a biologia é conhecida, também, como a ciência da variabilidade. Métricas como o peso de um pássaro, o número de ovos em um ninho, o tempo de forrageio são medidas que variam naturalmente entre indivíduos, populações e ao longo do tempo. Quando coleta-se dados em estudo de campo ou em laboratórios, é observado apenas uma pequena amostra dessa grande variabilidade, permitindo surgir perguntas como "Como posso usar minha amostra para dizer algo significativo sobre a população inteira?" e "Como separo um efeito biológico real do mero acaso?".
+Métricas como o peso de um pássaro, o número de ovos em um ninho, o tempo de forrageio são medidas que variam naturalmente entre indivíduos, populações e ao longo do tempo. Quando coleta-se dados em estudo de campo ou em laboratórios, é observado apenas uma fração dessa variabilidade, levantando perguntas fundamentais "Como posso usar minha amostra para dizer algo significativo sobre a população inteira?" e "Como separo um efeito biológico real do mero acaso?".
 
-É a partir desses questionamentos que os fundamentos do pensamento estatístico entram em cena. Contudo, para chegar nessa etapa, é necessário conceitos fundamentais da teoria da probabilidade. Para calcular as probabilidades associadas a eles, se faz necessário algumas definições formais.
+É a partir desses questionamentos que os fundamentos do pensamento estatístico entram em cena. Contudo, antes de chegar à inferência, é necessário dominar conceitos fundamentais da teoria da probabilidade, pois é a partir deles que se calculam as probabilidades associadas aos fenômenos estudados.
 
 ## Conceitos Fundamentais
 
@@ -26,10 +38,10 @@ Dois eventos são chamados de **mutuamente exclusivos** ou **disjuntos** se eles
 
 Um axioma, dentro da matemática, é uma regra que fundamenta uma teoria e dentro da teoria de Probabilidade, há alguns axiomas importantes para 
 
-Na matemática, um axioma é um regra aceita como ponto de partida para desenvolver uma teoria. Na teoria das Probabilidades não é diferente, existem axiomas fundamentais que funcionam como "regras do jogo", servindo de base para a construção de todos os conceitos e resultados da área. Esses axiomas foram propostos por @kolmogorovFoundationsTheoryProbability1950 e podem ser resumidos, considerando $\mathbb{P}(A)$ a probabilidade de um evento $A$ ocorrer, da seguinte forma:
+Na matemática, um axioma é uma regra aceita como ponto de partida para desenvolver uma teoria. Na teoria das Probabilidades não é diferente, existem axiomas fundamentais que funcionam como "regras do jogo", servindo de base para a construção de todos os conceitos e resultados da área. Esses axiomas foram propostos por @kolmogorovFoundationsTheoryProbability1950 e podem ser resumidos, considerando $\mathbb{P}(A)$ a probabilidade de um evento $A$ ocorrer, da seguinte forma:
 
 1. **Não negatividade**: Para qualquer evento $A$, sua probabilidade é sempre um número maior ou igual a zero, isto é, $\mathbb{P}(A) \geq 0$.
-2. **Normalização**: O evento certo (ou seja, a quele que sempre acontece) tem probabilidade igual a 1, isto é, $\mathbb{P}(\Omega) = 1$, onde $\Omega$ é o espaço amostral.
+2. **Normalização**: O evento certo (ou seja, aquele que sempre acontece) tem probabilidade igual a 1, isto é, $\mathbb{P}(\Omega) = 1$, onde $\Omega$ é o espaço amostral.
 3. **Aditividade**: Se dois eventos $A$ e $B$ são mutuamente exclusivos, então a probabilidade de ocorrer $A$ ou $B$ é a soma das probabilidades individuais, isto é, $\mathbb{P}(A\cup B) = \mathbb{P}(A) + \mathbb{P}(B)$.
 
 A partir desses axiomas, derivamos a **Regra da Adição** para quaisquer dois eventos (não necessariamente disjuntos):
@@ -45,7 +57,7 @@ Ainda, é importante tomar cuidado quando os casos não são equiprováveis.
 
 Muitas vezes, a probabilidade de um evento $A$ é reavaliada quando sabemos que um outro evento $B$ já ocorreu. Então, essa nova probabilidade é chamada por **Probabilidade Condicional** e é calculada por:
   $$\mathbb{P}(A\mid B) = \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.$$
-Lê-se "probabilidade de $A$, dado que $B$ ocorreu". A ocorrência de $B$ restringe o espaço amostral ao conjunto $B$. Por fim, dizemos que dois eventos $A$ e $B$ são ditos **independentes** se a ocorrência de um não altera a probabilidade do outro. Matematicamente, isso pode ser escrito por $\mathbb{P}(A\mid B) = \mathbb{P}(A)$$. A grande consequência disso é a simplificação da Regra do Produto:
+Lê-se "probabilidade de $A$, dado que $B$ ocorreu". A ocorrência de $B$ restringe o espaço amostral ao conjunto $B$. Por fim, dizemos que dois eventos $A$ e $B$ são **independentes** se a ocorrência de um não altera a probabilidade do outro, isto é, $\mathbb{P}(A\mid B) = \mathbb{P}(A)$$. A grande consequência disso é a simplificação da Regra do Produto:
 
 - Se $A$ e $B$ são independentes:
   $$\mathbb{P}(A\cap B) = \mathbb{P}(A) \times \mathbb{P}(B).$$
@@ -60,7 +72,7 @@ De forma intuitiva, esse teorema nos mostra como atualizar a probabilidade de um
 A utilidade desse teorema se torna válido, visto que exames diagnósticos não são perfeitos, pois podem apresentar falsos positivos (indicando a doença quando ela não existe) e falsos negativos (não indica doença, quando ela está presente). Portanto, o Teorema de Bayes ajuda a levar em conta essas imperfeições, fornecendo uma visão mais realista sobre o resultado.
 
 
-## Variáveis Aleatórias e Modelos Probabilísticos
+## Variáveis Aleatórias
 
 Em Estatística Descritiva, foi definido os tipos de variáveis e formas de resumi-las por distribuições de frequências (tabelas e gráficos) e medidas resumo. Isso foi realizado com base em dados conquistados de amostras ou experimentos. Foram estudos empíricos, isto é, com base nas características dos dados.
 
@@ -68,31 +80,377 @@ No entanto, amostras ou experimentos podem ser vistos como ensaios aleatórios, 
 
 Na realidade, para os problemas relevantes, esses aspectos não são conhecidas, mas caso fossem conhecidos um pouco do comportamento verdadeiro dessas características e em conjunto com o conhecimento empírico, auxiliaria nas descobertas do estudo. Por essa razão, nesta seção, será estudado alguns comportamentos teóricos de variáveis aleatórias denominado por distribuições de probabilidades ou modelos de probabilidades, em princípio, efetuando algumas suposições prévias.
 
-### Variáveis Aleaórias
-
 Para aplicar ferramentas matemáticas a fenômenos biológicos, precisamos traduzir as observações em números. Uma **variável aleatória** (v.a.) é formalmente uma função que atribui um valor numérico a cada resultado possível de um experimento ou observação. @magalhaesProbabilidadeVariaveisAleatorias2006, matematicamente, define a variável aleatória como sendo $X\colon \Omega \to \mathbb{R}$. Portanto, é a ponte entre o fenômeno observado e o dado analisável.
 
-Uma vez definida a variável aleatória como a ligação entre o fenômeno observado e os valores numéricos que foram analisados, o próximo passo é compreender como esses valores se distribuem. Em outras palavras, precisa-se de uma forma de descrever a probabilidade associada a cada possível valor que a variável pode assumir. Formalmente, como apresentado por @magalhaesProbabilidadeVariaveisAleatorias2006, a função de distribuição de uma variável aleatória $X$ é definida por
+
+### Função de Distribuição
+
+Uma vez definida a variável aleatória como a ligação entre o fenômeno observado e os valores numéricos que foram analisados, surge a necessidade de compreender como esses valores se distribuem. Ou seja, desejamos saber quais valores a variável aleatória tende a assumir e com que frequência ou probabilidade. Para isso, introduzimos a função de distribuição [@magalhaesProbabilidadeVariaveisAleatorias2006], que atribui a cada número real a probabilidade de que a variável aleatória assuma um valor menor ou igual a esse número. Formalmente, para uma variável aleatória $X$, sua função de distribuição $F_X$ é definida por:
   $$F_X(x) = \mathbb{P}(X \leq x),$$
-com $\mathbb{P}(X \leq x)$ assumindo valores entre $0$ e $1$, ou seja, para cada valor de $x$, $F_X(x)$ indica a probabilidade de que variável aleatória $X$ assuma um valor menor ou igual a $X$.
+Essa função, também chamada por **função de probabilidade**, resume todo o comportamento probabilístico da variável aleatória, fornecendo a base para as próximas subseções, nas quais serão explorados as variáveis aleatórias discretas e variáveis aleatórias contínuas, com exemplos aplicados a fenômenos biológicos, como a contagem de indivíduos de uma espécie ou a medida de características morfológicas de aves.
 
-De maneira intuitiva, podemos pensar nessa função como um mapa que organiza todas as possíveis observações do fenômeno biológico em probabilidades acumuladas. Por exemplo, se $X$ representa o comprimento do bico de uma espécie de pássaro, $F_X(x)$ indica a fração de indivíduos cujo bico mede até $x$ mm.
+:::{.exemplo}
+Considere o experimento de observar um ninho de uma determinada espécie de ave logo após a postura. Suponha que essa espécie geralmente põe 1 ou 2 ovos. Assim, o espaço amostral pode ser escrito como:
+  $$\Omega = \{1\text{ ovo}, 2\text{ ovos}\}.$$
+Se, com base em estudos prévios, acredita-se que cada situação tem a mesma chance de ocorrer, então:
+  $$\mathbb{P}(\text{cara}) = \mathbb{P}(\text{coroa}) = 1/2.$$
+Podemos definir uma variável aleatória $X$, que representa o número de ovos por ninho:
+  $$X = \begin{cases}
+    1,& \text{ se o ninho contiver 1 ovo}, \\
+    0,& \text{ se o ninho contiver 2 ovos}.
+  \end{cases}$$
+Para obtermos a função de distribuição desta variável aleatória, é conveniente separar os possíveis casos de acordo com os valores que podem ser assumidos pela variável. Nesta ocasião, podemos ter:
+  $$F_X(x) = \begin{cases}
+    0,& \text{ se } x < 1, \\
+    1/2,& \text{ se } 1\leq x < 2,  \\
+    1, &\text{ se } x\geq 2.
+  \end{cases}$$
+:::
 
-Essa formalização nos permite, nas próximas subseções, diferenciar claramente variáveis aleatórias discretas, cujos valores podem ser contados, de variáveis contínuas, cujos valores variam ao longo de um intervalo contínuo, o que é essencial para a análise dados biológicos.
+Com o exemplo dos ovos em um ninho, vimos como uma variável aleatória pode ser utilizada para traduzir em números um fenômeno biológico e, a partir disso, construir sua função de distribuição. Esse raciocínio evidencia que o próximo passo é entender quais são os modelos matemáticos mais utilizados para descrever variáveis aleatórias em situações práticas.
+
+De um modo geral, uma variável aleatória pode ser classificada em dois tipos principais: **discreta** ou **contínua**. 
+
+- Dizemos que uma variável é **discreta** quando assume valores inteiros, muitas vezes resultantes de processos de contagem. Exemplos incluem o número de ovo em um ninho, o número de indivíduos em uma amostra ou o número de vezes que uma ave é observada em um ponto de monitoramento.
+- Já uma variável aleatória é dita **contínua** quando pode assumir qualquer valor em um intervalo da reta real, geralmente resultante de processos de mensuração. Exemplos incluem a massa corporal de uma ave, o comprimento do bico ou o tempo de incubação dos ovos.
+
+Em ambos os casos, a função de distribuição fornece uma descrição detalhada do comportamento da variável. No entanto, a forma como são construídas são diferentes:
+
+- Para variáveis **discretas**, trabalha-se com as **probabilidades associadas** a cada valor possível.
+- Para variáveis **contínuas**, trabalha-se com as **densidades de probabilidade** e com a noção de área sob uma curva.
+
+
+### Valor Esperado e Variância
+
+Ao estudarmos variáveis aleatórias, é comum buscarmos resumos numéricos que descrevam seu comportamento, de maneira análoga ao que foi realizado em estatística descritiva com medidas de posição e dispersão, de modo que seja possível responder perguntas como "qual a média de $X$?", "qual é o desvio padrão de $X$?", etc. No contexto da Probabilidade, essas medidas são denominadas, respectivamente, por **valor esperado** (ou esperança) e **variância**.
+
+O valor esperado de uma variável aleatória $X$, denotada por $\mathbb{E}(X) = \mu_X$, corresponde à média teórica dos valores que $X$ pode assumir, ponderada pelas probabilidades associadas a cada valor. Formalmente,
+  $$ 
+  \mathbb{E}(X) = \begin{dcases}
+    \sum x\cdot \mathbb{P}(X = x), & \text{se } X \text{ é uma v.a. discreta}, \\
+    \int x\cdot f(x)\mathrm{d}x, & \text{se } X \text{ é uma v.a. contínua}.
+  \end{dcases}
+  $$
+Assim, a esperança pode ser interpretada como o valor médio que esperaríamos observar se o experimento fosse repetido inúmeras vezes.
+
+Já a variância, denotada por $\mathbb{V}(X)$, mede a dispersão em torno da média teórica (esperança), sendo definida como:
+  $$\mathbb{V}(X) = \sigma_X^2 = \mathbb{E}((X - \mathbb{E}(X))^2),$$
+que, após algumas manipulações matemáticas, pode ser escrita como:
+  $$\sigma_X^2 = \mathbb{E}(X^2) - (\mathbb{E}(X))^2.$$
+A primeira parte desta expressão diz: "eleve a variável ao quadrado e calcule a média". Já a segunda, "uma vez calculada a média da variável, eleve-a ao quadrado".
+
+Assim, como foi visto em Estatística Descritiva, o **desvio padrão** é definido como sendo a raiz quadrada da variância, que fornece uma medida da variabilidade na mesma escala de unidade da variável aleatória. Em expressões matemáticas,
+  $$\sigma_X = \sqrt{\sigma^2_X}$$
+
+:::{.exemplo}
+Suponha que, em uma determinada espécie de ave, o número de ovos por ninho ($X$) tenha a seguinte distribuição:
+  $$\mathbb{P}(X = 0) = 0.2,\quad \mathbb{P}(X = 1) = 0.5,\quad \mathbb{P}(X = 2) = 0.3.$$
+O valor esperado é:
+  $$\mathbb{E}(X) = 0\cdot 0.2 + 1\cdot 0.5 + 2\cdot 0.3 = 1.1.$$
+Isso significa que, em média, espera-se encontrar cerca de $1.1$ ovos por ninho, mesmo que nunca observemos exatamente esse valor. Para fins práticos e interpretativos, pode-se dizer que "espera-se encontrar $1$ ovo por ninho". Já a variância é:
+  $$\mathbb{V}(X) = (0-1.1)^2\cdot 0.2 + (1 - 1.1)^2\cdot 0.5 + (2 - 1.1)^2\cdot 0.3 = 0.49.$$
+Logo, o desvio padrão é $\sigma_X = \sqrt{0.49} = 0.7$, indicando a variabilidade típica em torno da média.
+:::
+
+
+## Variáveis Aleatórias Discretas
+
+Em muitos estudos biológicos, lidamos com variáveis que assumem apenas determinados valores inteiros, como o número de indivíduos em uma amostra, o número de ovos em um ninho ou, ainda, o número de ocorrências de uma determinada espécie em uma área. Tais variáveis são chamadas de **variáveis aleatórias discretas**.
+
+A função de probabilidade de uma variável discreta é uma função que atribui probabilidade a cada um dos possíveis valores assumido pela variável. Isto é, sendo $X$ uma variável com valores $x_1, x_2, \dots$, temos
+  $$p(x_i) = \mathbb{P}(X = x_i).$$
+As características essenciais dessa função são: (i) os valores de $p(x_i)$ estão entre $0$ e $1$ e (ii) a soma de todos os possíveis de $p(x_i)$ deve ser igual a $1$.
+
+Nesta seção, serão abordados três modelos fundamentais para as variáveis discretas -- **Bernoulli, Binomial e Poisson** -- que, além de possuírem grande importância teórica, são também a base para os modelos que serão vistos futuramente. Cada um desses modelos descreve diferentes tipos de fenômenos, permitindo compreender como traduzir a aleatoriedade observada na natureza em uma estrutura matemática consistente.
+
+### Distribuição de Bernoulli
+
+Muitos experimentos na prática têm apenas dois resultados possíveis: a ocorrência ou não de uma determinada característica. Entre os exemplos clássicos e biológicos, citamos:
+
+1. O lançamento de uma moeda: o resultado pode ser cara (sucesso) ou coroa (fracasso);
+2. A escolha de um animal ao acaso: observa-se se ele é fêmea (sucesso) ou não (fracasso);
+3. A observação de um animal em um estudo de campo: verifica-se se está vivo (sucesso) ou morto (fracasso);
+4. A observação de um filhote após à estação reprodutiva: verifica-se se está vivo (sucesso) ou morto (fracasso);
+5. A observação de uma ave apresentar uma mutação genética (sucesso) ou não (fracasso).
+
+Nesses casos, o interesse está em registrar a ocorrência de **sucesso** (codificado como $1$) ou **fracasso** (codificado como $0$). Assim, é possível definir uma variável aleatória binária $X$ que assume apenas os valores $1$ (sucesso) e $0$ (fracasso). Denota-se por $p$ a probabilidade de sucesso. Então, diz-se que uma variável aleatória segue a distribuição ou modelo de Bernoulli quando assume apenas os valores $0$ ou $1$. A notação para essa relação é dada por:
+  $$X\sim\text{Bernoulli}(p).$$
+A função de probabilidade pode ser expressa numa única equação dada por:
+  $$p(x)\mathbb{P}(X = x) = p^x\times(1-p)^{1-x},\quad \text{para } x = 0,1,$$
+e, também, em sua forma destrinchada:
+  $$p(1) = \mathbb{P}(X = 1) = p; \quad p(0) = \mathbb{P}(X = 0) = 1 - p.$$
+Nesse modelo, o parâmetro é justamente a probabilidade $p$ de sucesso. A esperança e a variância de uma variável de Bernoulli, respectivamente, são:
+  $$\mathbb{E}(X) = p; \quad \mathbb{V}(X) = p - p^2 = p(1 - p).$$
+Trata-se, portanto, de um dos modelos mais simples e fundamentais em probabilidade, servindo de base para problemas mais interessantes, tais como envolvendo a distribuição Binomial.
 
 :::{.exemplo}
 Semear uma semente, com potencial germinativo $p$ e observar se ela germina ou não. O espaço amostral é $\Omega = \{G, \bar{G}\}$, sendo $G$ a representação para ocorrência da germinação. A probabilidade associada é $\mathbb{P}(G) = p$, com $0<p<1$. Seja $Y$ a variável que assume o valor $1$ se $G$ (sucesso) e o valor $0$ se $\bar{G}$ (fracasso). Assim, $Y$ também tem seu espaço amostral que é $\Omega_Y = \{0,1\}$.
 
-![Espaço amostral do experimento e da variável aleatória binária $Y$.](Imagens/figura1.pdf){fig-align="center"}
+![Espaço amostral do experimento e da variável aleatória binária $X$.](Imagens/figura1.pdf){fig-align="center"}
 
-Suponha $p = 0.4$, então 
+\noindent Suponha $p = 0.4$, então 
   $$\mathbb{P}(Y = 0) = (1-p) = 0.6\quad \text{e}\quad \mathbb{P}(Y = 1) = p = 0.4.$$
-Esses dois valores formam a distribuição de probabilidades de $Y$, que é uma variável discreta binária, pois pode assumir um de dois valores. 
+Esses dois valores formam a distribuição de probabilidades de $Y$, que é uma variável discreta binária, pois pode assumir um de dois valores (@fig-bernoulli). 
+
+```{r}
+#| echo: false
+#| fig-cap: "Distribuição de probabilidades da variável $X \\sim \\text{Bernoulli}(0.4).$"
+#| label: fig-bernoulli
+
+tibble(
+  y = c(0,1),
+  prob = c(0.6, 0.4)
+) %>% 
+  ggplot(aes(x = factor(y), y = prob))+
+  geom_col(fill = "steelblue", width = 0.01)+
+  labs(
+    x = TeX(r'($X$)'), 
+    y = TeX(r'($P(X = x)$)')
+  )+
+  scale_y_continuous(breaks = seq(0.0, 1.0, by=0.2))+
+  coord_cartesian(ylim = c(0,1))+
+  theme_clean()
+```
+A esperança é dada por:
+  $$\mathbb{E}(X) = p = 0.4 .$$
+Enquanto que a variância é:
+  $$\mathbb{V}(X) = p(1 - p) = 0.4(1 - 0.4) = 0.24,$$
+deste modo, obtemos que o desvio padrão é $\sigma_X = \sqrt{0.24} = 0.4899$. É importante observar que se soubermos o valor de $p$, é possível calcular "tudo" desta variável.
+:::
+
+### Distribuição Binomial
+
+A distribuição de Bernoulli descreve experimentos com apenas dois resultados possíveis: sucesso ou fracasso. No entanto, na prática, diversas situações envolvem a repetição de um mesmo experimento inúmeras vezes de forma independente. Nessa ocasião, em vez de observar apenas um único resultado ($0$ ou $1$), interessa-nos contar quantos sucessos ocorrem em $n$ repetições e para isso, existe a distribuição Binomial. Exemplos incluem:
+
+1. Repetir 10 vezes o lançamento de uma moeda e contar quantas vezes sai cara;
+2. Escolher 20 animais ao acaso e contabilizar a quantidade de fêmeas;
+3. Observar 15 animais ao acaso e contabilizar a quantidade de vivos;
+4. Observar número de animais sobreviventes em uma ninhada de $n$ filhotes;
+5. Examinar 50 aves e verificar a quantidade de animais que possuem mutação genética.
+
+Então, é natural pensar nela como uma extensão da distribuição de Bernoulli, visto que ela modela um único ensaio ($X \sim \text{Bernoulli}(p)$), enquanto que a Binomial modela o número de sucessos em $n$ ensaios de Bernoulli. A notação é $Y \sim \text{Bin}(n,p)$.
+
+Formalmente, se realizarmos $n$ ensaios de Bernoulli independentes, cada um com probabilidade de sucesso $p$, então a variável aleatória $Y$, que representa o número total de sucessos, seguirá a distribuição Binomial de parâmetros $n$ e $p$. A função da distribuição Binomial é dada por:
+  $$\mathbb{P}(Y=k) = \binom{n}{k}p^k(1 - p)^{n-k}, \quad k = 0,1,\dots, n,$$
+onde $\binom{n}{k} = \frac{n!}{(n-k)!k!}$ representa o número de diferentes sequências possíveis contendo exatamente $k$ sucessos em $n$ ensaios. A esperança e a variância dessa distribuição, respectivamente, são dadas por:
+  $$\mathbb{E}(Y) = np, \quad \mathbb{V}(Y) = np(1 - p)$$
+
+:::{.exemplo}
+Semear 5 sementes similares de forma que uma não interfere no desenvolvimento das outras e observar se cada uma germinou ou não após certo período. Sendo $G$ a ocorrência da germinação, o espaço amostral desse ensaio aleatório é:
+  $$\Omega = \{GGG, GG\bar{G}, G\bar{G}G, \dots, \bar{G}\bar{G}\bar{G}\}.$$
+Esse espaço amostral tem $2^3 = 8$ elementos e podemos definir a variável aleatória $X$ como sendo o número de sementes geminadas em $n=3$ ensaios. Note que para cada semente $i$ temos uma variável $X_i \sim \text{Bernoulli}(p)$ associada. Neste sentido, o conjunto dos possíveis valores de $X$, ou seja, o espaço amostral de $X$, é $\Omega_X = \{0,1,2,3\}$. 
+
+![Espaço amostral do experimento e da variável aleatória $X$.](Imagens/figura2.pdf){fig-align="center"}
+
+\noindent Considerando $p = 0.4$, o potencial de germinação, a função de distribuição é dada por:
+  $$p(x) = \mathbb{P}(X = x) = \binom{3}{x}0.4^{x}\cdot 0.6^{3-x}.$$
+As probabilidades presentes na @tbl-probs-ger mostram a distribuição de probabilidade da variável aleatória $X$, que também pode ser representada num gráfico (@fig-probs-ger).
+
+```{r}
+#| echo: false
+#| tbl-cap: "Probabilidades germinação de sementes no exemplo."
+#| label: tbl-probs-ger
+
+
+tibble(
+  x = c(0,1,2,3),
+  y = c(
+    paste0("$1\\times 0.4^0 \\times 0.6^3 = $ ", 0.216),
+    paste0("$3\\times 0.4^1 \\times 0.6^2 = $ ", 0.432),
+    paste0("$3\\times 0.4^2 \\times 0.6^1 = $ ", 0.288),
+    paste0("$1\\times 0.4^3 \\times 0.6^0 = $ ", 0.064)
+  )
+) %>% 
+  kable(
+    booktabs = TRUE,
+    escape = FALSE,
+    format = "latex",
+    col.names = c("Número de sementes geminadas", "Probabilidades de germinação"),
+    align = "cc"
+  ) %>% 
+  kable_styling(latex_options = "striped")
+```
+
+
+```{r}
+#| echo: false
+#| fig-cap: "Distribuição de probabilidades da variável $X\\sim \\text{Bin}(3, p)$."
+#| label: fig-probs-ger
+
+tibble(
+  x = 0:3,
+  y = dbinom(0:3, size = 3, prob = 0.4)
+) %>% 
+  ggplot(aes(x = factor(x), y = y))+
+  geom_col(fill = "steelblue", width = 0.01)+
+  labs(
+    x = "Número de sementes germinadas (X)",
+    y = "P(X = x)"
+  )+
+  scale_y_continuous(breaks = seq(0.0, 0.5, by = 0.1))+
+  coord_cartesian(ylim = c(0,0.5))+
+  theme_clean()
+```
+A partir dessas distribuições, é possível responder perguntas como:
+
+1. Qual a probabilidade de ter pelo menos 2 germinações?
+  $$\mathbb{P}(X \geq 2) = \mathbb{P}(X = 2) + \mathbb{P}(X = 3) = 0.228 + 0.064 = 0.292$$
+Portanto, a probabilidade de ter pelo menos 2 germinações é de 29.2\%.
+2. Qual a probabilidade de ter germinação?
+  $$\mathbb{P}(X \geq 1) = 1 - \mathbb{P}(X < 1) = 1 - \mathbb{P}(X = 0) = 1 - 0.216 = 0.785$$
+Portanto, a probabilidade de ter germinação é de 78.5\%.
+3. Qual a média de germinações? A resposta para essa pergunta provém do valor esperado de $X$. Portanto, basta calcularmos $\mathbb{E}(X)$ a partir dos resultados presentes na @tbl-probs-ger:
+  $$\mathbb{E}(X) = 0\times \mathbb{P}(X = 0) + 1\cdot \mathbb{P}(X = 1) + 2\cdot \mathbb{P}(X = 2) + 3\cdot \mathbb{P}(X = 3) = 1.2$$
+No entanto, é possível calcularmos através da fórmula do valor esperado específico da distribuição Binomial:
+  $$\mathbb{E}(X) = n\times p = 3\times 0.4 = 1.2,$$
+fornecendo o mesmo resultado, mas com contas mais simples.
+4. Qual a variância de $X$? Note que seguindo a definição vista, teremos um trabalho árduo de contas a serem feitas à mão. No entanto, o fato de $X\sim \text{Bin}(n,p)$, sabemos que $\sigma^2_X = np(1 - p)$. Portanto, a variância é:
+  $$\sigma^2_X = \mathbb{V}(X) = 3\times 0.4\times 0.6 = 0.72.$$
+:::
+
+### Distribuição de Poisson
+
+Muitas vezes, o interesse em experimentos não está em verificar apenas sucesso ou fracasso (Bernoulli) nem em contar quantos sucessos ocorreram em $n$ tentativas fixas (Binomial). Existem outras situações práticas, que o objetivo é modelar o número de ocorrências de um evento em um certo intervalo de tempo ou espaço, sem que exista previamente um número fixo de repetições. Exemplos dessas situações incluem:
+
+1. O número de aves que pousam em uma área de observação em 1 horas;
+2. O número de mutações em uma sequência de DNA com comprimento fixo;
+3. O número de chamadas recebidas em um centro de triagem veterinárias por minutos;
+4. O número de insetos que caem em uma armadilha em um dia;
+5. O número de casos de doenças transmitidas por semana.
+
+Essa distribuição, conhecida por **distribuição de Poisson**, é particularmente adequada quando (1) os eventos ocorrem de forma independente, (2) a taxa média de ocorrência é constante no tempo ou espaço e (3) a probabilidade de dois ou mais eventos ocorrerem simultaneamente é desprezível.
+
+Desta forma, dizemos que uma variável aleatória $X$ segue a distribuição de Poisson com parâmetro $\lambda > 0$ (taxa média de ocorrência) e denotamos por $X\sim \text{Po}(\lambda)$. A sua função de distribuição é dada por:
+  $$p(k) = \mathbb{P}(X = k) = \frac{e^{\lambda}\lambda^k}{k!}, \quad k = 0,1,2,\dots$$
+Neste modelo, o parâmetro $\lambda$ representa tanto a média, quanto a variância, isto é:
+  $$\mathbb{E}(X) = \lambda, \quad \mathbb{V}(X) = \lambda.$$
+
+:::{.exemplo}
+Suponha que, em média, 2 aves pousam em uma árvore a cada hora em determinada região de estudo. O número de aves que pousam em uma variável pode ser modelado a partir de uma variável aleatória $X\sim \text{Po}(\lambda = 2)$. Assim, o espaço amostral de $X$ é $\Omega_X = \{0,1,2,\dots\}$ com 
+  $$p(k) = \mathbb{P}(X = k) = \frac{e^{-2}2^k}{k!}, \quad k = 0,1,2,\dots$$
+A distribuição de $X\sim \text{Po}(2)$ está representada na @fig-poisson-2 e a partir dela, é possível responder alguns questionamentos como:
+
+1. Qual a probabilidade de nenhuma ave pousar em uma hora?
+  $$\mathbb{P}(X = 0) = \frac{e^{-2}2^0}{0!} = 0.135$$
+2. Qual a probabilidade no máximo 2 aves pousarem em uma hora?
+  $$\mathbb{P}(X \leq 2) = \mathbb{P}(X = 0) + \mathbb{P}(X = 1) + \mathbb{P}(X = 2) = 5e^{-2} = 0.6767. $$
+```{r}
+#| echo: false
+#| fig-cap: "Distribuição de probabilidades da variável $X \\sim \\text{Poisson}(2).$"
+#| label: fig-poisson-2
+
+tibble(
+  x = 0:8,
+  y = dpois(0:8, lambda = 2)
+) %>%
+  ggplot(aes(x = factor(x), y = y)) +
+  geom_col(fill = "steelblue", width = 0.01) +
+  labs(
+    x = "Número de aves pousando (X)",
+    y = "P(X = x)"
+  ) +
+  scale_y_continuous(breaks = seq(0.0, 0.3, by = 0.05)) +
+  coord_cartesian(ylim = c(0,0.3)) +
+  theme_clean()
+```
 
 :::
 
+## Variáveis Aleatórias Contínuas
 
+Na seção anterior lidamos com variáveis que assumem apenas determinados valores inteiros, denominadas por variáveis aleatórias discretas. No entanto, outra parte dos estudos envolvem as chamadas **variáveis aleatórias contínuas**, que podem assumir qualquer valor em um intervalo da reta real. Compreender sua estrutura é um processo importante de nosso estudo. 
 
+Considere o ensaio aleatório "sortear uma planta de uma grande cultura". Assim, o espaço amostral é
+  $$\Omega = \{\text{planta}_1, \text{planta}_2, \text{planta}_3, \dots\}.$$
+Para cada elemento de $\Omega$ podemos definir a variável aleatória $X$ que representa a produção da planta, resultado no seguinte espaço amostral de $X$:
+  $$\Omega_X = \{x\mid x>0\}.$$
+A distribuição de probabilidades para uma variável contínua chamada de **densidade de probabilidade** e denotada por $f_X(x)$. 
+
+Existe um grande número de funções matemáticas que são modelos de probabilidades. Essas funções podem ser representadas por equações e também em gráficos (@fig-densidades).
+```{r}
+#| echo: false
+#| layout-ncol: 2
+#| layout-nrow: 2
+#| fig-cap: "Alguns gráficos de funções densidades de probabilidade."
+#| fig-subcap: 
+#|   - "Distribuição Exponencial"
+#|   - "Distribuição Normal"
+#|   - "Distribuição Gamma"
+#|   - "Distribuição Uniforme"
+#| label: fig-densidades
+
+tibble(
+  x = seq(0,10, length.out = 500),
+  y = dexp(x, rate = 0.5)
+) %>% 
+  ggplot(aes(x = x, y = y))+
+  geom_line(linewidth = 1)+
+  labs(
+    x = "x",
+    y = "f(x)"
+  )+
+  theme_clean()
+
+tibble(
+  x = seq(10,30, length.out = 500),
+  y = dnorm(x, mean = 20, sd = 2)
+) %>% 
+  ggplot(aes(x = x, y = y))+
+  geom_line(linewidth = 1)+
+  labs(
+    x = "x",
+    y = "f(x)"
+  )+
+  theme_clean()
+
+tibble(
+  x = seq(0,10, length.out=500),
+  y = dgamma(x, shape = 2, rate = 1)
+) %>% 
+  ggplot(aes(x = x, y = y))+
+  geom_line(linewidth = 1)+
+  labs(
+    x = "x",
+    y = "f(x)"
+  )+
+  theme_clean()
+
+tibble(
+  x = c(0,0, 10,10),
+  y = c(0, 0.1, 0.1, 0)
+) %>% 
+  ggplot(aes(x = x, y = y))+
+  geom_line(linewidth = 1)+
+  labs(
+    x = "x",
+    y = "f(x)"
+  )+
+  coord_cartesian(xlim = c(-0.5, 10.5), ylim = c(0, 0.15))+
+  theme_clean()
+```
+
+Uma função $f_X(x)$, definida nos reais, é uma densidade se é **não negativa**, isto é, $f_X(x) \geq 0$ e satisfaz:
+  $$\int f_X(x) \mathrm{d}x = 1.$$
+A segunda propriedade diz que a área sob a curva é igual a 1, totalizando os 100\% de possibilidades de valores que $X$ pode assumir. Deste modo, a probabilidade da variável pertencer a um intervalo qualquer $(a,b)$ é dada pela área sob a curva:
+  $$\mathbb{P}(a < X < b) = \int_{a}^b f_X(x)\mathrm{d}x.$$
+As consequências imediatas desta definição são:
+
+1. A área à esquerda do ponto $b$ é:
+  $$\mathbb{P}(X < b) = \int_{-\infty}^b f_X(x)\mathrm{d}x;$$
+2. A área à direita do ponto $b$ é:
+  $$\mathbb{P}(X > b) = \int_{b}^{\infty} f_X(x) \mathrm{d}x = 1 - \mathbb{P}(X < b);$$
+3. A área sob o ponto $b$ é:
+  $$\mathbb{P}(X = b) = 0.$$ 
+
+A última propriedade informa que, se a variável é contínua, a probabilidade dela assumir um valor particular qualquer é nula, visto que ponto não possui comprimento, explicitando o conceito que para variáveis contínuas, a probabilidade positiva existe apenas para valores dentro de intervalos.
+
+Ainda nesta seção, serão abordados dois modelos fundamentais para as variáveis contínuas -- **Exponencial** e **Normal** -- que são imprescindíveis para a base teórica de Modelos Lineares, que serão vistos futuramente.
+
+### Distribuição Uniforme
+
+### Distribuição Exponencial
+
+### Distribuição Normal
 
 
 

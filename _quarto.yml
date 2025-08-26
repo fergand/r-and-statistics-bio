@@ -63,10 +63,14 @@ format:
     include-in-header: header.tex
     filters: 
       - ambientes-latex.lua
+      
+  html:
+    theme: cosmo
+    toc: true
+    toc-title: "Sumário"
+    number-sections: true
+    code-fold: true
         
-  # Você pode adicionar outros formatos aqui, como HTML
-  # html:
-  #   theme: cosmo
 execute:
   fig-width: 6
   fig-height: 2.5
